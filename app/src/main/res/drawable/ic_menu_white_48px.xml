@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:better="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NewApi"
+    android:viewportWidth="24"
+    better:viewportWidth="24"
+    android:viewportHeight="24"
+    better:viewportHeight="24"
+    android:width="24dp"
+    android:height="24dp">
+    <path
+        android:pathData="M3 18l18 0 0 -2 -18 0 0 2zm0 -5l18 0 0 -2 -18 0 0 2zM3 6L3 8 21 8 21 6 3 6Z"
+        better:pathData="M3 18l18 0 0 -2 -18 0 0 2zm0 -5l18 0 0 -2 -18 0 0 2zM3 6L3 8 21 8 21 6 3 6Z"
+        android:fillColor="#FFFFFF"
+        better:fillColor="#FFFFFF" />
+</vector>

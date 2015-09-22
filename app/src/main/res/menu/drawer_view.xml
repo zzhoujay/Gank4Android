@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_daily"
+            android:title="@string/nav_daily" />
+        <item
+            android:id="@+id/nav_ios"
+            android:title="@string/nav_ios" />
+        <item
+            android:id="@+id/nav_android"
+            android:title="@string/nav_android" />
+        <item
+            android:id="@+id/nav_recommend"
+            android:title="@string/nav_recomment" />
+        <item
+            android:id="@+id/nav_resource"
+            android:title="@string/nav_resource" />
+        <item
+            android:id="@+id/nav_welfare"
+            android:title="@string/nav_welfare" />
+        <item
+            android:id="@+id/nav_video"
+            android:title="@string/nav_video" />
+        <item
+            android:id="@+id/nav_random"
+            android:title="@string/nav_random" />
+    </group>
+
+    <item android:title="Sub items">
+        <menu>
+            <item android:title="Sub item 1" />
+            <item android:title="Sub item 2" />
+        </menu>
+    </item>
+
+</menu>

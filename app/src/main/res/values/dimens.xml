@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="detail_backdrop_height">500dp</dimen>
+
+    <dimen name="material_display_4">112sp</dimen>
+    <dimen name="material_display_3">56sp</dimen>
+    <dimen name="material_display_2">45sp</dimen>
+    <dimen name="material_display_1">34sp</dimen>
+    <dimen name="material_headline">24sp</dimen>
+    <dimen name="material_title">21sp</dimen>
+    <dimen name="material_sub_head">17sp</dimen>
+    <dimen name="material_body">15sp</dimen>
+    <dimen name="material_caption">13sp</dimen>
+    <dimen name="material_button">15sp</dimen>
+</resources>

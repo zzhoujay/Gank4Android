@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Gank</string>
+
+    <string name="nav_ios">iOS</string>
+    <string name="nav_android">Android</string>
+    <string name="nav_recomment">瞎推荐</string>
+    <string name="nav_resource">扩展资源</string>
+    <string name="nav_welfare">福利</string>
+    <string name="nav_video">休息视频</string>
+    <string name="nav_daily">今天</string>
+    <string name="nav_random">试试运气</string>
+</resources>
