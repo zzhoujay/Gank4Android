@@ -33,4 +33,20 @@ class Gank {
 
     Gank() {
     }
+
+
+    @Override
+    public String toString() {
+        return "Gank{" +
+                "who='" + who + '\'' +
+                ", desc='" + desc + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", objectId='" + objectId + '\'' +
+                ", used=" + used +
+                ", publishedAt=" + publishedAt +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

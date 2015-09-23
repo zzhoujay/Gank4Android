@@ -62,12 +62,12 @@ class DailyFragment extends BaseFragment {
 
         dailyAdapter = new DailyAdapter();
         ResultDaily result = JsonKit.generate(JsonKit.test, App.getInstance().getGson());
-        dailyAdapter.setDaily(result.daily);
+        dailyAdapter.setDaily(result.results);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(dailyAdapter);
 
-        GankDaily daily = result.daily;
+        GankDaily daily = result.results;
         Picasso.with(getActivity()).load(daily.ganks.get(daily.types.indexOf("福利")).get(0).url).into(icon);
 
         return view;

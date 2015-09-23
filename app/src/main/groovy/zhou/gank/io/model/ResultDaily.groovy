@@ -8,13 +8,22 @@ import groovy.transform.ToString;
 class ResultDaily {
 
     public boolean error
-    public GankDaily daily;
+    public GankDaily results;
 
-    ResultDaily(boolean error, GankDaily daily) {
+    ResultDaily(boolean error, GankDaily results) {
         this.error = error
-        this.daily = daily
+        this.results = results
     }
 
     ResultDaily() {
+    }
+
+
+    @Override
+    public String toString() {
+        return "ResultDaily{" +
+                "error=" + error +
+                ", results=" + results +
+                '}';
     }
 }

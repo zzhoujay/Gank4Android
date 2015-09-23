@@ -5,15 +5,16 @@ import android.widget.Toast
 import com.bettervectordrawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
+import zhou.gank.io.net.NetworkManager
 
 @CompileStatic
 class App extends Application {
 
     public static final String SITE_URL = "http://gank.avosapps.com";
-    public static final String TYPE_URL = SITE_URL + "/api/data/%s/%d/%d";
-    public static final String TIME_URL = SITE_URL + "/api/day/%d/%d/%d";
-    public static final String RANDOM_URL = SITE_URL + "/api/random/data/%s/%d";
+    public static final String TYPE_URL = SITE_URL + "/api/data";
+    public static final String TIME_URL = SITE_URL + "/api/day";
+    public static final String RANDOM_URL = SITE_URL + "/api/random/data";
 
     private static App app;
 
@@ -29,7 +30,7 @@ class App extends Application {
         app = this;
 
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
-
+        NetworkManager.getInstance().init(gson)
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
                 R.drawable.ic_favorite_white_48px);
     }

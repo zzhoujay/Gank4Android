@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.ToString;
 
 @CompileStatic
-@ToString
+@ToString(includeNames = true)
 class GankDaily {
 
     public List<String> types;
@@ -28,5 +28,14 @@ class GankDaily {
     }
 
     GankDaily() {
+    }
+
+
+    @Override
+    public String toString() {
+        return "GankDaily{" +
+                "types=" + types +
+                ", ganks=" + ganks +
+                '}';
     }
 }

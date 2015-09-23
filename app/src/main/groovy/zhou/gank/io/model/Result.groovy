@@ -5,10 +5,10 @@ import groovy.transform.CompileStatic;
 @CompileStatic
 class Result {
 
-    public boolean  error
-    public Object results
+    public boolean error
+    public List<Gank> results
 
-    Result(boolean error, Object results) {
+    Result(boolean error, List<Gank> results) {
         this.error = error
         this.results = results
     }
@@ -16,7 +16,16 @@ class Result {
     Result() {
     }
 
-    boolean isSuccess(){
+    boolean isSuccess() {
         !error
+    }
+
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "error=" + error +
+                ", results=" + results +
+                '}';
     }
 }
