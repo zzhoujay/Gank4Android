@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -25,6 +26,10 @@ class BaseFragment extends Fragment{
             return appCompatActivity.getSupportActionBar();
         }
         return null;
+    }
+
+    def initView(View v){
+
     }
 
 }

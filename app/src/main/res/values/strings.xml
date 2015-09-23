@@ -9,4 +9,7 @@
     <string name="nav_video">休息视频</string>
     <string name="nav_daily">今天</string>
     <string name="nav_random">试试运气</string>
+    <string name="test_user">zzhoujay</string>
+    <string name="test_title">测试标题。。。。。。。。。。。。。。。</string>
+    <string name="test_time">2015年9月23日</string>
 </resources>
