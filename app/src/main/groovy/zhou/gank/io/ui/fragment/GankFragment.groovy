@@ -12,7 +12,10 @@ import android.widget.Toast
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
+import zhou.gank.io.data.DataManager
 import zhou.gank.io.data.DataProvider
+import zhou.gank.io.data.RandomProvider
+import zhou.gank.io.data.TypeProvider
 import zhou.gank.io.model.Gank
 import zhou.gank.io.ui.adapter.GankAdapter
 
@@ -35,15 +38,25 @@ public class GankFragment extends BaseFragment {
             type = b.getString(Config.Static.TYPE)
             isRandom = b.getBoolean(Config.Static.IS_RANDOM, false)
         }
+
+        if (isRandom) {
+            provider = new RandomProvider(type, Config.Configurable.DEFAULT_SIZE)
+        } else {
+            provider = new TypeProvider(type, Config.Configurable.DEFAULT_SIZE)
+        }
     }
 
     @Override
     View onCreateView(LayoutInflater inflater,
                       @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        def v = inflater.inflate(R.layout.fragment_recyler_view, container, false)
+        View v = inflater.inflate(R.layout.fragment_recyler_view, container, false)
         initView(v)
 
         adapter = new GankAdapter()
+
+        recyclerView.setAdapter(adapter)
+
+        DataManager.getInstance().get(provider, setUpData as Closure)
 
         return v
     }

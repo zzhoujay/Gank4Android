@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -29,10 +30,10 @@ class HomeActivity extends AppCompatActivity {
 
         initView();
 
-//        dailyFragment = new DailyFragment();
-        androidFragment = GankFragment.newInstance(Config.Type.ANDROID)
-//
-//        add(dailyFragment)
+        dailyFragment = new DailyFragment();
+        androidFragment = GankFragment.newInstance(Config.Type.ANDROID,true) as GankFragment
+
+        add(dailyFragment)
     }
 
     def initView() {
@@ -40,16 +41,18 @@ class HomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view) as NavigationView
         coordinatorLayout = findViewById(R.id.container) as CoordinatorLayout
 
-//        navigationView.setNavigationItemSelectedListener({ item ->
-//            switch (item.getItemId()) {
-//                case R.id.nav_android:
-//                    replace(androidFragment)
-//                    return true
-//                case R.id.nav_daily:
-//                    replace(dailyFragment)
-//                    return true
-//            }
-//        })
+        navigationView.setNavigationItemSelectedListener({ item ->
+            def i=item as MenuItem
+            drawerLayout.closeDrawers()
+            switch (i.getItemId()) {
+                case R.id.nav_android:
+                    replace(androidFragment)
+                    return true
+                case R.id.nav_daily:
+                    replace(dailyFragment)
+                    return true
+            }
+        })
     }
 
     def add(Fragment f) {

@@ -6,9 +6,6 @@ import android.support.annotation.Nullable
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import groovy.transform.CompileStatic
-import zhou.gank.io.data.DataManager
-import zhou.gank.io.data.TypeProvider
-import zhou.gank.io.model.Gank
 import zhou.gank.io.ui.activity.HomeActivity
 
 @CompileStatic

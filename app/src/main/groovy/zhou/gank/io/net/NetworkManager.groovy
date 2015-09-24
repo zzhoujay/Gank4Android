@@ -64,7 +64,9 @@ class NetworkManager {
         client.newCall(r).enqueue(new Callback() {
             @Override
             void onFailure(Request request, IOException e) {
-                closure(defaultHandle?.call(e))
+                handler.post({
+                    closure(defaultHandle?.call(e))
+                })
             }
 
             @Override
@@ -84,7 +86,9 @@ class NetworkManager {
         client.newCall(r).enqueue(new Callback() {
             @Override
             void onFailure(Request request, IOException e) {
-                closure(defaultHandle?.call(e))
+                handler.post({
+                    closure(defaultHandle?.call(e))
+                })
             }
 
             @Override
