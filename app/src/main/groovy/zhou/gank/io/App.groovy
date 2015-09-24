@@ -30,7 +30,7 @@ class App extends Application {
         app = this;
 
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
-        NetworkManager.getInstance().init(gson)
+        NetworkManager.getInstance().init(this, gson)
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
                 R.drawable.ic_favorite_white_48px);
     }

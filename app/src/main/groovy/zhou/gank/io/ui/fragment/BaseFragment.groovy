@@ -31,5 +31,4 @@ class BaseFragment extends Fragment{
     def initView(View v){
 
     }
-
 }

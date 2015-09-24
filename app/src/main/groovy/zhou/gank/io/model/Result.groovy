@@ -3,9 +3,8 @@ package zhou.gank.io.model
 import groovy.transform.CompileStatic;
 
 @CompileStatic
-class Result {
+class Result extends BaseResult {
 
-    public boolean error
     public List<Gank> results
 
     Result(boolean error, List<Gank> results) {
@@ -16,10 +15,6 @@ class Result {
     Result() {
     }
 
-    boolean isSuccess() {
-        !error
-    }
-
 
     @Override
     public String toString() {
@@ -27,5 +22,10 @@ class Result {
                 "error=" + error +
                 ", results=" + results +
                 '}';
+    }
+
+    @Override
+    boolean isSuccess() {
+        !error
     }
 }

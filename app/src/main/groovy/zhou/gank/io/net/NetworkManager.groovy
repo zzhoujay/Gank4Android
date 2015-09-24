@@ -1,5 +1,8 @@
 package zhou.gank.io.net
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -17,8 +20,9 @@ class NetworkManager {
 
     OkHttpClient client
     Gson gson
-    Handler handler;
+    Handler handler
     Closure defaultHandle
+    Context context
 
     private static NetworkManager networkManager;
 
@@ -26,13 +30,14 @@ class NetworkManager {
         return networkManager
     }
 
-    static void init(Gson gson) {
-        networkManager = new NetworkManager(gson)
+    static void init(Context context, Gson gson) {
+        networkManager = new NetworkManager(context, gson)
     }
 
-    private NetworkManager(Gson gson) {
-        client = new OkHttpClient();
+    private NetworkManager(Context context, Gson gson) {
+        client = new OkHttpClient()
         this.gson = gson;
+        this.context = context
         handler = new Handler(Looper.getMainLooper())
     }
 
@@ -59,7 +64,7 @@ class NetworkManager {
         client.newCall(r).enqueue(new Callback() {
             @Override
             void onFailure(Request request, IOException e) {
-
+                closure(defaultHandle?.call(e))
             }
 
             @Override
@@ -79,7 +84,7 @@ class NetworkManager {
         client.newCall(r).enqueue(new Callback() {
             @Override
             void onFailure(Request request, IOException e) {
-
+                closure(defaultHandle?.call(e))
             }
 
             @Override
@@ -91,5 +96,11 @@ class NetworkManager {
                 })
             }
         })
+    }
+
+    boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo()
+        networkInfo != null && networkInfo.isAvailable()
     }
 }

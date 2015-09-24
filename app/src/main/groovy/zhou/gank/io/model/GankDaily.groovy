@@ -5,7 +5,7 @@ import groovy.transform.ToString;
 
 @CompileStatic
 @ToString(includeNames = true)
-class GankDaily {
+class GankDaily implements Serializable{
 
     public List<String> types;
     public List<List<Gank>> ganks;

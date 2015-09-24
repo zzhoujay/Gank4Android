@@ -5,9 +5,8 @@ import groovy.transform.ToString;
 
 @CompileStatic
 @ToString
-class ResultDaily {
+class ResultDaily extends BaseResult {
 
-    public boolean error
     public GankDaily results;
 
     ResultDaily(boolean error, GankDaily results) {
@@ -18,12 +17,16 @@ class ResultDaily {
     ResultDaily() {
     }
 
-
     @Override
     public String toString() {
         return "ResultDaily{" +
                 "error=" + error +
                 ", results=" + results +
                 '}';
+    }
+
+    @Override
+    boolean isSuccess() {
+        !error
     }
 }

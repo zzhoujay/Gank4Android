@@ -12,4 +12,12 @@ class Pageable {
         this.pageNo = pageNo
         this.pageSize = pageSize
     }
+
+    def next(){
+        pageNo++
+    }
+
+    def prev(){
+        pageNo--
+    }
 }

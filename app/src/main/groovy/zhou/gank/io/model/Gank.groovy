@@ -7,7 +7,7 @@ import groovy.transform.ToString;
 @ToString
 @EqualsAndHashCode
 @CompileStatic
-class Gank {
+class Gank implements Serializable{
 
     public String who
     public String desc

@@ -5,9 +5,16 @@ import groovy.transform.CompileStatic;
 @CompileStatic
 class Config {
 
+    public static class Configurable {
+
+        public static final int DEFAULT_SIZE = 10
+    }
+
     public static class Static {
 
         public static final String TYPE = "type"
+
+        public static final String IS_RANDOM = "is_random"
 
     }
 

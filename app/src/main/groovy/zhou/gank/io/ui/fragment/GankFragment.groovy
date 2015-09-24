@@ -12,18 +12,18 @@ import android.widget.Toast
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
+import zhou.gank.io.data.DataProvider
 import zhou.gank.io.model.Gank
-import zhou.gank.io.model.Result
 import zhou.gank.io.ui.adapter.GankAdapter
-import zhou.gank.io.util.NetworkKit
 
 @CompileStatic
 public class GankFragment extends BaseFragment {
 
     SwipeRefreshLayout swipeRefreshLayout
     RecyclerView recyclerView
-
+    DataProvider provider
     String type
+    boolean isRandom
 
     private GankAdapter adapter
 
@@ -33,6 +33,7 @@ public class GankFragment extends BaseFragment {
         def b = getArguments()
         if (b) {
             type = b.getString(Config.Static.TYPE)
+            isRandom = b.getBoolean(Config.Static.IS_RANDOM, false)
         }
     }
 
@@ -44,20 +45,21 @@ public class GankFragment extends BaseFragment {
 
         adapter = new GankAdapter()
 
-        NetworkKit.type(type, 20, 1, getDate as Closure)
-
         return v
     }
 
-    def getDate = { result ->
-        if (result instanceof Result) {
-            if (result.isSuccess()) {
-                adapter.setGanks(result.results as List<Gank>)
+    def setUpData = { list ->
+        if (list instanceof List<Gank>) {
+            if (list.isEmpty()) {
+                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show()
+                adapter.setGanks(list)
             }
+        } else {
+            Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     @Override
     def initView(View v) {
@@ -65,5 +67,14 @@ public class GankFragment extends BaseFragment {
         recyclerView = v.findViewById(R.id.recyclerView) as RecyclerView
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()))
+    }
+
+    def static newInstance(String type, boolean isRandom = false) {
+        GankFragment fragment = new GankFragment()
+        Bundle bundle = new Bundle()
+        bundle.putString(Config.Static.TYPE, type)
+        bundle.putBoolean(Config.Static.IS_RANDOM, isRandom)
+        fragment.setArguments(bundle)
+        fragment
     }
 }

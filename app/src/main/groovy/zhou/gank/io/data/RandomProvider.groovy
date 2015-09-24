@@ -1,14 +1,21 @@
-
 package zhou.gank.io.data
+
 import android.support.annotation.NonNull
 import android.support.annotation.Nullable
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
+import zhou.gank.io.R
 import zhou.gank.io.model.Gank
+import zhou.gank.io.model.Result
+import zhou.gank.io.net.NetworkManager
+import zhou.gank.io.util.FileKit
 import zhou.gank.io.util.HashKit
+import zhou.gank.io.util.LogKit
+import zhou.gank.io.util.NetworkKit
 
 @CompileStatic
 class RandomProvider implements DataProvider<List<Gank>> {
+
     private List<Gank> ganks;
     private int size;
     private String key, type;
@@ -17,7 +24,7 @@ class RandomProvider implements DataProvider<List<Gank>> {
     RandomProvider(String type, int size) {
         this.type = type;
         this.size = size;
-        key = HashKit.md5(String.format("%s-%d-random.cache", type, size));
+        key = HashKit.md5("$type-$size-random.cache");
         file = new File(App.cacheFile(), key);
     }
 
@@ -25,7 +32,11 @@ class RandomProvider implements DataProvider<List<Gank>> {
     void persistence() {
         if (hasLoad()) {
             new Thread({
-
+                try {
+                    FileKit.writeObject(file, ganks)
+                } catch (Exception e) {
+                    LogKit.d("persistence", "random", e)
+                }
             }).start();
         }
     }
@@ -43,12 +54,34 @@ class RandomProvider implements DataProvider<List<Gank>> {
 
     @Override
     void loadByCache(Closure closure) {
-
+        def gks = null
+        if (file.exists()) {
+            try {
+                gks = FileKit.readObject(file)
+            } catch (Exception e) {
+                LogKit.d("loadByCache", "random", e)
+            }
+        }
+        closure?.call(gks)
     }
 
     @Override
     void load(Closure closure, boolean more) {
-
+        if (NetworkManager.getInstance().isNetworkConnected()) {
+            NetworkKit.random(type, size, { result ->
+                def gks = null
+                def r = result as Result
+                if (r?.isSuccess()) {
+                    gks = r.results
+                } else {
+                    App.toast(R.string.failure_get)
+                }
+                closure?.call(gks)
+            })
+        } else {
+            closure?.call()
+            App.toast(R.string.error_network)
+        }
     }
 
     @Override
