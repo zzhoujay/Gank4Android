@@ -43,6 +43,8 @@ class App extends Application {
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
                 R.drawable.ic_favorite_white_48px,
                 R.drawable.wrong)
+
+        Config.Configurable.HANDLE_BY_ME = true
     }
 
     static void toast(int id) {

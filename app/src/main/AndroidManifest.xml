@@ -18,8 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.HomeActivity" />
-        <activity android:name=".ui.activity.TabActivity"
-            android:theme="@style/AppTheme.Tab"/>
+        <activity
+            android:name=".ui.activity.TabActivity"
+            android:theme="@style/AppTheme.Tab" />
+        <activity android:name=".ui.activity.WebActivity" />
     </application>
 
 </manifest>

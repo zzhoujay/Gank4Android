@@ -72,7 +72,7 @@ class TimeProvider implements DataProvider<GankDaily> {
         if (NetworkManager.getInstance().isNetworkConnected()) {
             NetworkKit.time(year, month, day, { result ->
                 def d = null
-                if(result instanceof Result){
+                if(result instanceof ResultDaily){
                     def r = result as ResultDaily
                     if (r.isSuccess()) {
                         d = r.results

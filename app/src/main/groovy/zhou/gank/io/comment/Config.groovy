@@ -7,18 +7,28 @@ class Config {
 
     public static class Configurable {
 
-        public static final int DEFAULT_SIZE = 10
+        public static int DEFAULT_SIZE = 10
 
-        public static final boolean HANDLE_BY_ME = false
+        public static boolean HANDLE_BY_ME = false
     }
 
     public static class Static {
 
         public static final String TYPE = "type"
 
+        public static final String URL = "url"
+
+        public static final String TITLE = "title"
+
         public static final String IS_RANDOM = "is_random"
 
         public static final String IS_IMAGE = "is_image"
+
+        public static final String YEAR = "year"
+
+        public static final String MONTH = "month"
+
+        public static final String DAY = "day"
     }
 
     public static class Type {

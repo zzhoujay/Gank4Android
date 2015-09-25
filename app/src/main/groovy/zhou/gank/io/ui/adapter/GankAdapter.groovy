@@ -13,13 +13,17 @@ import zhou.gank.io.util.TimeKit
 @CompileStatic
 public class GankAdapter extends BaseAdapter<Holder> {
 
-    private List<Gank> ganks
+    List<Gank> ganks
 
     @Override
     Holder onCreateViewHolder(ViewGroup viewGroup, int i) {
         def holder = new Holder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_gank, null))
         holder.setListener { p ->
+
             Gank gank = ganks?.get(p as int)
+            assert clickListener!=null
+            println(clickListener.class.name)
+            println(gank)
             clickListener?.call(gank)
         }
         return holder

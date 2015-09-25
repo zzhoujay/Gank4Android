@@ -5,13 +5,17 @@ import groovy.transform.ToString;
 
 @CompileStatic
 @ToString(includeNames = true)
-class GankDaily implements Serializable{
+class GankDaily implements Serializable {
 
     public List<String> types;
     public List<List<Gank>> ganks;
 
     int size() {
         return types.size();
+    }
+
+    boolean isEmpty() {
+        return types == null ? true : types.isEmpty() || ganks == null ? true : ganks.isEmpty()
     }
 
     String getType(int index) {

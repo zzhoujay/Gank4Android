@@ -1,5 +1,7 @@
 package zhou.gank.io.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import zhou.gank.io.data.DataProvider
 import zhou.gank.io.data.RandomProvider
 import zhou.gank.io.data.TypeProvider
 import zhou.gank.io.model.Gank
+import zhou.gank.io.ui.activity.WebActivity
 import zhou.gank.io.ui.adapter.BaseAdapter
 import zhou.gank.io.ui.adapter.GankAdapter
 import zhou.gank.io.ui.adapter.ImageAdapter
@@ -53,7 +56,18 @@ public class GankFragment extends AdvanceFragment {
             adapter = new GankAdapter()
         }
 
-        adapter.setClickListener { this.&onClick }
+        adapter.setClickListener { gank ->
+            def gs = gank as Gank
+            if (!Config.Configurable.HANDLE_BY_ME) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gs.url))
+                startActivity(intent)
+            } else {
+                Intent intent = new Intent(getActivity(), WebActivity.class)
+                intent.putExtra(Config.Static.URL, gs.url)
+                intent.putExtra(Config.Static.TITLE, gs.desc)
+                startActivity(intent)
+            }
+        }
     }
 
 
@@ -124,7 +138,8 @@ public class GankFragment extends AdvanceFragment {
         more?.setVisibility(View.GONE)
     }
 
-    protected void onClick(Gank gank) {
+    void onClick(Gank gank) {
+        println(this.class.name)
         Toast.makeText(getActivity(), gank.toString(), Toast.LENGTH_SHORT).show()
     }
 

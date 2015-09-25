@@ -26,15 +26,6 @@
 
     <!--</android.support.design.widget.AppBarLayout>-->
 
-    <ImageView
-        android:id="@+id/failure"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wrong"
-        android:visibility="invisible" />
-
     <zhou.gank.io.ui.weiget.SwipeToRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"

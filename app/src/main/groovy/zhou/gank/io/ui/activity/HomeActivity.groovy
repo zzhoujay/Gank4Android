@@ -1,4 +1,6 @@
 package zhou.gank.io.ui.activity
+
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.NavigationView
@@ -11,9 +13,10 @@ import zhou.gank.io.R
 import zhou.gank.io.comment.Config
 import zhou.gank.io.ui.fragment.DailyFragment
 import zhou.gank.io.ui.fragment.GankFragment
+import zhou.gank.io.util.Notifier
 
 @CompileStatic
-class HomeActivity extends AppCompatActivity {
+class HomeActivity extends AppCompatActivity implements Notifier{
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -31,7 +34,7 @@ class HomeActivity extends AppCompatActivity {
         initView();
 
         dailyFragment = new DailyFragment();
-        androidFragment = GankFragment.newInstance(Config.Type.ANDROID,true) as GankFragment
+        androidFragment = GankFragment.newInstance(Config.Type.ANDROID, true) as GankFragment
 
         add(dailyFragment)
     }
@@ -42,14 +45,21 @@ class HomeActivity extends AppCompatActivity {
         coordinatorLayout = findViewById(R.id.container) as CoordinatorLayout
 
         navigationView.setNavigationItemSelectedListener({ item ->
-            def i=item as MenuItem
+            def i = item as MenuItem
             drawerLayout.closeDrawers()
             switch (i.getItemId()) {
-                case R.id.nav_android:
-                    replace(androidFragment)
-                    return true
                 case R.id.nav_daily:
                     replace(dailyFragment)
+                    return true
+                case R.id.nav_type:
+                    Intent intent = new Intent(this, TabActivity.class)
+                    intent.putExtra(Config.Static.IS_RANDOM, false)
+                    startActivity(intent)
+                    return true
+                case R.id.nav_random:
+                    Intent intent = new Intent(this, TabActivity.class)
+                    intent.putExtra(Config.Static.IS_RANDOM, true)
+                    startActivity(intent)
                     return true
             }
         })
@@ -61,9 +71,17 @@ class HomeActivity extends AppCompatActivity {
     }
 
     def replace(Fragment f) {
+        if (currFragment == f) {
+            return
+        }
         coordinatorLayout.removeAllViews()
         getSupportFragmentManager().beginTransaction().remove(currFragment).add(R.id.container, f).commit()
         this.currFragment = f
     }
 
+    @Override
+    void notice(int noticeId) {
+        switch (noticeId){
+        }
+    }
 }

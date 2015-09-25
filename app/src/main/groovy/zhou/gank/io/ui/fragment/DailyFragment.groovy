@@ -1,4 +1,5 @@
 package zhou.gank.io.ui.fragment
+
 import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -12,14 +13,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.squareup.picasso.Picasso
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
+import zhou.gank.io.comment.Config
+import zhou.gank.io.data.DataManager
+import zhou.gank.io.data.TimeProvider
+import zhou.gank.io.model.Gank
 import zhou.gank.io.model.GankDaily
 import zhou.gank.io.model.ResultDaily
 import zhou.gank.io.ui.adapter.DailyAdapter
 import zhou.gank.io.util.JsonKit
+import zhou.gank.io.util.TimeKit
 
 @CompileStatic
 class DailyFragment extends BaseFragment {
@@ -28,14 +35,27 @@ class DailyFragment extends BaseFragment {
     RecyclerView recyclerView;
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-
-    private DailyAdapter dailyAdapter;
+    TimeProvider provider
+    DailyAdapter dailyAdapter;
+    int year, month, day
 
 
     @Override
     void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        def b = getArguments()
+        List<Integer> time = TimeKit.getTime()
+        year = time[0]
+        month = time[1]
+        day = time[2]
+        if (b) {
+            year = b.getInt(Config.Static.YEAR)
+            month = b.getInt(Config.Static.MONTH)
+            day = b.getInt(Config.Static.DAY)
+        }
+
+        provider = new TimeProvider(year, month, day)
     }
 
     @Nullable
@@ -61,22 +81,36 @@ class DailyFragment extends BaseFragment {
         toolbar.setTitle(R.string.app_name);
 
         dailyAdapter = new DailyAdapter();
-        ResultDaily result = JsonKit.generate(JsonKit.test, App.getInstance().getGson());
-        dailyAdapter.setDaily(result.results);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(dailyAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()))
+        recyclerView.setAdapter(dailyAdapter)
 
-        GankDaily daily = result.results;
-        Picasso.with(getActivity()).load(daily.ganks.get(daily.types.indexOf("福利")).get(0).url).into(icon);
+        DataManager.getInstance().get(provider, this.&setUpData)
 
         return view;
+    }
+
+    protected void setUpData(GankDaily daily) {
+        if (daily) {
+            if (daily.isEmpty()) {
+                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show()
+            } else {
+                List<List<Gank>> ganks = daily.ganks
+                List<String> types = daily.types
+                Picasso.with(getActivity()).load(ganks.get(types.indexOf(Config.Type.WELFARE)).get(0).url).into(icon)
+
+                dailyAdapter.setDaily(daily)
+            }
+        } else {
+            Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_SHORT).show()
+        }
     }
 
     @Override
     boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

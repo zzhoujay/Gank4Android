@@ -6,23 +6,8 @@
             android:id="@+id/nav_daily"
             android:title="@string/nav_daily" />
         <item
-            android:id="@+id/nav_ios"
-            android:title="@string/nav_ios" />
-        <item
-            android:id="@+id/nav_android"
-            android:title="@string/nav_android" />
-        <item
-            android:id="@+id/nav_recommend"
-            android:title="@string/nav_recommend" />
-        <item
-            android:id="@+id/nav_resource"
-            android:title="@string/nav_resource" />
-        <item
-            android:id="@+id/nav_welfare"
-            android:title="@string/nav_welfare" />
-        <item
-            android:id="@+id/nav_video"
-            android:title="@string/nav_video" />
+            android:id="@+id/nav_type"
+            android:title="@string/nav_type" />
         <item
             android:id="@+id/nav_random"
             android:title="@string/nav_random" />

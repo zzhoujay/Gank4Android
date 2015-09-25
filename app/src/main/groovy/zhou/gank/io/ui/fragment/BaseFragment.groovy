@@ -5,11 +5,23 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.KeyEvent
 import android.view.View
 import groovy.transform.CompileStatic
+import zhou.gank.io.util.Notifier
 
 @CompileStatic
-class BaseFragment extends Fragment{
+class BaseFragment extends Fragment {
+
+    Notifier notifier
+
+    @Override
+    void onAttach(Activity activity) {
+        super.onAttach(activity)
+        if (activity instanceof Notifier) {
+            notifier = activity as Notifier
+        }
+    }
 
     protected void setSupportActionBar(Toolbar toolbar) {
         Activity activity = getActivity();
@@ -28,7 +40,15 @@ class BaseFragment extends Fragment{
         return null;
     }
 
-    protected void initView(View v){
+    protected void noticeActivity(int noticeId) {
+        notifier?.notice(noticeId)
+    }
 
+    protected void initView(View v) {
+
+    }
+
+    boolean onKeyDown(int keyCode, KeyEvent event) {
+        return false
     }
 }
