@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.model.GankDaily
+import zhou.gank.io.model.Result
 import zhou.gank.io.model.ResultDaily
 import zhou.gank.io.net.NetworkManager
 import zhou.gank.io.util.FileKit
@@ -71,11 +72,13 @@ class TimeProvider implements DataProvider<GankDaily> {
         if (NetworkManager.getInstance().isNetworkConnected()) {
             NetworkKit.time(year, month, day, { result ->
                 def d = null
-                def r = result as ResultDaily
-                if (r.isSuccess()) {
-                    d = r.results
-                } else {
-                    App.toast(R.string.failure_get)
+                if(result instanceof Result){
+                    def r = result as ResultDaily
+                    if (r.isSuccess()) {
+                        d = r.results
+                    } else {
+                        App.toast(R.string.failure_get)
+                    }
                 }
                 closure?.call(d)
             })

@@ -12,10 +12,13 @@ import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
 import com.squareup.okhttp.Response
 import groovy.transform.CompileStatic
+import zhou.gank.io.model.Result
+import zhou.gank.io.util.LogKit
 
 import java.lang.reflect.Type
+import java.util.concurrent.TimeUnit
 
-@CompileStatic
+//@CompileStatic
 class NetworkManager {
 
     OkHttpClient client
@@ -36,6 +39,9 @@ class NetworkManager {
 
     private NetworkManager(Context context, Gson gson) {
         client = new OkHttpClient()
+        client.setConnectTimeout(3, TimeUnit.SECONDS)
+        client.setReadTimeout(3, TimeUnit.SECONDS)
+        client.setWriteTimeout(3, TimeUnit.SECONDS)
         this.gson = gson;
         this.context = context
         handler = new Handler(Looper.getMainLooper())
@@ -53,6 +59,7 @@ class NetworkManager {
             @Override
             void onResponse(Response response) throws IOException {
                 String body = response.body().string();
+                LogKit.d("requestString", body)
                 handler.post({
                     closure(body)
                 })
@@ -94,6 +101,7 @@ class NetworkManager {
             @Override
             void onResponse(Response response) throws IOException {
                 String body = response.body().string()
+                Log.d("success", body)
                 def result = gson.fromJson(body, type)
                 handler.post({
                     closure(result)

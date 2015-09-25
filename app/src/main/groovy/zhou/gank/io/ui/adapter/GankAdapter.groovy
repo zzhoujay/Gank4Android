@@ -8,24 +8,30 @@ import android.widget.TextView
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.model.Gank
+import zhou.gank.io.util.TimeKit
 
 @CompileStatic
-public class GankAdapter extends RecyclerView.Adapter<Holder> {
+public class GankAdapter extends BaseAdapter<Holder> {
 
     private List<Gank> ganks
 
     @Override
     Holder onCreateViewHolder(ViewGroup viewGroup, int i) {
         def holder = new Holder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_gank, null))
+        holder.setListener { p ->
+            Gank gank = ganks?.get(p as int)
+            clickListener?.call(gank)
+        }
         return holder
     }
 
     @Override
     void onBindViewHolder(Holder holder, int i) {
-        Gank gank=ganks.get(i)
+        Gank gank = ganks.get(i)
 
         holder.title.setText(gank.desc)
         holder.user.setText(gank.who)
+        holder.time.setText(TimeKit.format(gank.createdAt))
     }
 
     @Override
@@ -37,12 +43,22 @@ public class GankAdapter extends RecyclerView.Adapter<Holder> {
 
         public TextView title, user, time
 
+        Closure listener
+
         Holder(View itemView) {
             super(itemView)
 
             title = itemView.findViewById(R.id.title) as TextView
             user = itemView.findViewById(R.id.user) as TextView
             time = itemView.findViewById(R.id.time) as TextView
+
+            itemView.setOnClickListener({ v ->
+                listener?.call(getAdapterPosition())
+            })
+        }
+
+        void setListener(Closure listener) {
+            this.listener = listener
         }
     }
 

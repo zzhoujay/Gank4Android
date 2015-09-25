@@ -13,7 +13,7 @@
             android:title="@string/nav_android" />
         <item
             android:id="@+id/nav_recommend"
-            android:title="@string/nav_recomment" />
+            android:title="@string/nav_recommend" />
         <item
             android:id="@+id/nav_resource"
             android:title="@string/nav_resource" />

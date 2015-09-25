@@ -6,6 +6,7 @@ import com.bettervectordrawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import groovy.transform.CompileStatic
+import zhou.gank.io.comment.Config
 import zhou.gank.io.net.NetworkManager
 
 @CompileStatic
@@ -31,8 +32,17 @@ class App extends Application {
 
         gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
         NetworkManager.getInstance().init(this, gson)
+        NetworkManager.getInstance().setDefaultHandle { e ->
+            switch (e) {
+                case SocketTimeoutException:
+                    return Config.Error.TIME_OUT
+                default:
+                    return Config.Error.UNKOWN
+            }
+        }
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
-                R.drawable.ic_favorite_white_48px);
+                R.drawable.ic_favorite_white_48px,
+                R.drawable.wrong)
     }
 
     static void toast(int id) {

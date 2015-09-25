@@ -1,4 +1,5 @@
 package zhou.gank.io.ui.adapter
+
 import android.support.v7.widget.RecyclerView
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import zhou.gank.io.model.GankDaily
 import zhou.gank.io.util.TextKit
 
 @CompileStatic
-class DailyAdapter extends RecyclerView.Adapter<Holder> {
+class DailyAdapter extends BaseAdapter<Holder> {
 
     private GankDaily daily;
 
@@ -30,7 +31,7 @@ class DailyAdapter extends RecyclerView.Adapter<Holder> {
 
     @Override
     int getItemCount() {
-        return daily == null ? 0 : daily.size();
+        return ganks == null ? 0 : ganks.size()
     }
 
     static class Holder extends RecyclerView.ViewHolder {

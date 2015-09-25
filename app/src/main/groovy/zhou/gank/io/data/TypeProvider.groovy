@@ -74,14 +74,18 @@ class TypeProvider implements DataProvider<List<Gank>> {
             }
             NetworkKit.type(type, pageable.pageSize, pageable.pageNo, { result ->
                 def gks = null
-                def r = result as Result
-                if (r?.isSuccess()) {
-                    gks = r.results
-                } else {
-                    if (more) {
-                        pageable.prev()
+                if(result instanceof Result){
+                    def r = result as Result
+                    if (r?.isSuccess()) {
+                        gks = r.results
+                    } else {
+                        if (more) {
+                            pageable.prev()
+                        }
+                        App.toast(R.string.failure_get)
                     }
-                    App.toast(R.string.failure_get)
+                }else {
+                    App.toast(result as String)
                 }
                 closure?.call(gks)
             })

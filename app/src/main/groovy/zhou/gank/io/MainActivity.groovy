@@ -6,7 +6,7 @@ import android.support.annotation.Nullable
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import groovy.transform.CompileStatic
-import zhou.gank.io.ui.activity.HomeActivity
+import zhou.gank.io.ui.activity.TabActivity
 
 @CompileStatic
 class MainActivity extends AppCompatActivity {
@@ -18,6 +18,6 @@ class MainActivity extends AppCompatActivity {
     }
 
     public void Open(View view) {
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, TabActivity.class));
     }
 }

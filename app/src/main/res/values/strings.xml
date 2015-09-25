@@ -3,8 +3,8 @@
 
     <string name="nav_ios">iOS</string>
     <string name="nav_android">Android</string>
-    <string name="nav_recomment">瞎推荐</string>
-    <string name="nav_resource">扩展资源</string>
+    <string name="nav_recommend">瞎推荐</string>
+    <string name="nav_resource">拓展资源</string>
     <string name="nav_welfare">福利</string>
     <string name="nav_video">休息视频</string>
     <string name="nav_daily">今天</string>
@@ -16,4 +16,5 @@
     <string name="error_network">网络连接不可用，请检查网络连接后重试</string>
 
     <string name="failure_get">获取数据失败</string>
+    <string name="text_loading">加载中。。。</string>
 </resources>

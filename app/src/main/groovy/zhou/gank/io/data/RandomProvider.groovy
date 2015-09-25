@@ -70,11 +70,15 @@ class RandomProvider implements DataProvider<List<Gank>> {
         if (NetworkManager.getInstance().isNetworkConnected()) {
             NetworkKit.random(type, size, { result ->
                 def gks = null
-                def r = result as Result
-                if (r?.isSuccess()) {
-                    gks = r.results
-                } else {
-                    App.toast(R.string.failure_get)
+                if(result instanceof Result){
+                    def r=result as Result
+                    if (r?.isSuccess()) {
+                        gks = r.results
+                    } else {
+                        App.toast(R.string.failure_get)
+                    }
+                }else {
+                    App.toast(result as String)
                 }
                 closure?.call(gks)
             })

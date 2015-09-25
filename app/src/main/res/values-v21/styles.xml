@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/material_purple_500</item>
         <item name="colorPrimaryDark">@color/material_purple_600</item>
@@ -9,5 +10,14 @@
         <item name="android:colorAccent">@color/material_red_500</item>
         <item name="android:statusBarColor">#11000000</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+
+    <style name="AppTheme.Tab" parent="AppTheme">
+        <item name="android:colorPrimary">@color/material_purple_500</item>
+        <item name="android:colorPrimaryDark">@color/material_purple_600</item>
+        <item name="android:colorAccent">@color/material_red_500</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/material_purple_600</item>
     </style>
 </resources>

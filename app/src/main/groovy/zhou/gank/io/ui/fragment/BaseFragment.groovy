@@ -28,7 +28,7 @@ class BaseFragment extends Fragment{
         return null;
     }
 
-    def initView(View v){
+    protected void initView(View v){
 
     }
 }

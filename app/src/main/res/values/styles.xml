@@ -7,4 +7,8 @@
         <item name="colorAccent">@color/material_red_500</item>
     </style>
 
+    <style name="AppTheme.Tab" parent="AppTheme">
+
+    </style>
+
 </resources>

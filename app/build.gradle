@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'groovyx.grooid.groovy-android'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
@@ -52,4 +52,6 @@ dependencies {
     compile 'com.bettervectordrawable:lib:0.4'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+
+    compile 'zhou.widget:advanceadapter:1.0'
 }
