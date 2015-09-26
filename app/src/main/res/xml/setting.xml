@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/title_base">
+
+        <ListPreference
+            android:defaultValue="dark"
+            android:key="@string/key_theme"
+            android:summary="%s"
+            android:title="@string/setting_theme" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_open"
+            android:summaryOff="@string/summary_off_open"
+            android:summaryOn="@string/summary_on_open"
+            android:title="@string/title_open" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/title_option">
+        <!--<SwitchPreference-->
+        <!--android:summary="just some summary text"-->
+        <!--android:title="switch"/>-->
+        <Preference
+            android:key="@string/key_clear"
+            android:title="@string/summary_clear" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

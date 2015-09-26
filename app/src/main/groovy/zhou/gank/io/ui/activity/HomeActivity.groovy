@@ -63,7 +63,8 @@ class HomeActivity extends AppCompatActivity implements Notifier {
 
                     return true
                 case R.id.nav_setting:
-
+                    def intent1 = new Intent(this, SettingActivity.class)
+                    startActivity(intent1)
                     return true
             }
             return false

@@ -53,5 +53,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'zhou.widget:advanceadapter:1.0'
-    compile project(':material_preferences_library')
 }
