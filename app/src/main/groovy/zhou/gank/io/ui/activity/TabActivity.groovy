@@ -10,7 +10,8 @@ import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem;
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -52,7 +53,7 @@ public class TabActivity extends AppCompatActivity {
         setSupportActionBar(toolbar)
         ActionBar actionBar = getSupportActionBar()
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle(R.string.app_name)
+
         tabLayout = findViewById(R.id.tabs) as TabLayout
         viewPager = findViewById(R.id.viewpager) as ViewPager
 
@@ -77,5 +78,21 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter)
         tabLayout.setupWithViewPager(viewPager)
         tabLayout.setTabsFromPagerAdapter(adapter)
+
+        if (isRandom) {
+            setTitle(R.string.nav_random)
+        } else {
+            setTitle(R.string.nav_type)
+        }
+    }
+
+    @Override
+    boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish()
+                return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

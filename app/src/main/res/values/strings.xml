@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gank</string>
+    <string name="app_name">Gank.io</string>
 
     <string name="nav_ios">iOS</string>
     <string name="nav_android">Android</string>
@@ -33,6 +33,16 @@
     <string name="title_theme">选择主题</string>
     <string name="title_open">在本应用内打开</string>
     <string name="title_setting">设置</string>
+    <string name="menu_copy">复制链接</string>
+    <string name="menu_open">在浏览器中打开</string>
+    <string name="menu_collect">收藏</string>
+    <string name="success_copy">链接已复制到剪贴板</string>
+    <string name="success_clear">缓存清除成功</string>
+
+    <string name="hehe">呵呵呵</string>
+    <string name="key_num">key_num</string>
+    <string name="title_num">显示数量</string>
+    <string name="summary_num">每页显示的数量</string>
 
     <string-array name="pref_theme_list_entries">
         <item>Dark</item>
@@ -41,5 +51,17 @@
     <string-array name="pref_theme_list_values">
         <item>dark</item>
         <item>light</item>
+    </string-array>
+
+    <string-array name="entries_num">
+        <item>少</item>
+        <item>中</item>
+        <item>多</item>
+    </string-array>
+
+    <string-array name="values_num">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
     </string-array>
 </resources>

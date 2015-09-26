@@ -12,6 +12,17 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/material_purple_500</item>
+        <item name="colorPrimaryDark">@color/material_purple_600</item>
+        <item name="colorAccent">@color/material_red_500</item>
+        <item name="android:colorPrimary">@color/material_purple_500</item>
+        <item name="android:colorPrimaryDark">@color/material_purple_600</item>
+        <item name="android:colorAccent">@color/material_red_500</item>
+        <item name="android:statusBarColor">#11000000</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
 
     <style name="AppTheme.Tab" parent="AppTheme">
         <item name="android:colorPrimary">@color/material_purple_500</item>

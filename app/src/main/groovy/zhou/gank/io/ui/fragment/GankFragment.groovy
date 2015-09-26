@@ -21,6 +21,7 @@ import zhou.gank.io.ui.activity.WebActivity
 import zhou.gank.io.ui.adapter.BaseAdapter
 import zhou.gank.io.ui.adapter.GankAdapter
 import zhou.gank.io.ui.adapter.ImageAdapter
+import zhou.gank.io.util.NumKit
 import zhou.widget.AdvanceAdapter
 
 @CompileStatic
@@ -44,10 +45,12 @@ public class GankFragment extends AdvanceFragment {
             isImage = b.getBoolean(Config.Static.IS_IMAGE, false)
         }
 
+        int size = NumKit.getNum(Config.getString(getString(R.string.key_num), "$Config.Configurable.DEFAULT_SIZE"), Config.Configurable.DEFAULT_SIZE)
+
         if (isRandom) {
-            provider = new RandomProvider(type, Config.Configurable.DEFAULT_SIZE)
+            provider = new RandomProvider(type, size)
         } else {
-            provider = new TypeProvider(type, Config.Configurable.DEFAULT_SIZE)
+            provider = new TypeProvider(type, size)
         }
 
         if (isImage) {
@@ -58,7 +61,8 @@ public class GankFragment extends AdvanceFragment {
 
         adapter.setClickListener { gank ->
             def gs = gank as Gank
-            if (!Config.Configurable.HANDLE_BY_ME) {
+            boolean flag = Config.getBoolean(getString(R.string.key_open), true)
+            if (!flag) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gs.url))
                 startActivity(intent)
             } else {
@@ -75,10 +79,10 @@ public class GankFragment extends AdvanceFragment {
         if (ganks != null) {
             if (ganks.isEmpty()) {
                 hiddenMore()
-                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show()
             } else {
                 onSuccess()
                 adapter.setGanks(ganks)
+                showMore()
             }
         } else {
             onFailure()
@@ -113,6 +117,9 @@ public class GankFragment extends AdvanceFragment {
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 }
             });
+
+            hiddenMore()
+
         } else {
             recyclerView.setAdapter(adapter)
         }
@@ -136,6 +143,11 @@ public class GankFragment extends AdvanceFragment {
 
     protected void hiddenMore() {
         more?.setVisibility(View.GONE)
+    }
+
+    protected void showMore() {
+        if (manager.getItemCount() <= manager.findLastVisibleItemPosition() - manager.findFirstVisibleItemPosition() + 1)
+            more?.setVisibility(View.VISIBLE)
     }
 
     void onClick(Gank gank) {

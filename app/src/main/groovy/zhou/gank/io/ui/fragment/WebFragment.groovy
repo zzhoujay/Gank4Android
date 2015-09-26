@@ -1,10 +1,15 @@
 package zhou.gank.io.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
@@ -13,6 +18,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import groovy.transform.CompileStatic
+import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
 
@@ -23,6 +29,12 @@ public class WebFragment extends BaseFragment {
     String url
     ProgressBar progressBar
     SwipeRefreshLayout swipeRefreshLayout
+
+    @Override
+    void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     @Override
     View onCreateView(LayoutInflater inflater,
@@ -98,6 +110,30 @@ public class WebFragment extends BaseFragment {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_web, menu)
+    }
+
+    @Override
+    boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_copy:
+                App.copyUri(Uri.parse(url))
+                App.toast(R.string.success_copy)
+                return true
+            case R.id.menu_open:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+                return true
+            case R.id.menu_collect:
+                App.toast(R.string.hehe)
+                return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     static WebFragment newInstance(String url) {

@@ -1,6 +1,9 @@
 package zhou.gank.io.comment
 
-import groovy.transform.CompileStatic;
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import groovy.transform.CompileStatic
+import zhou.gank.io.App;
 
 @CompileStatic
 class Config {
@@ -9,7 +12,7 @@ class Config {
 
         public static int DEFAULT_SIZE = 10
 
-        public static boolean HANDLE_BY_ME = false
+        public static boolean HANDLE_BY_ME = true
     }
 
     public static class Static {
@@ -60,5 +63,20 @@ class Config {
 
         //打开drawerLayout
         public static final int OPEN_DRAWER_LAYOUT = 0x111111
+    }
+
+    public static String getString(String key, String d) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getInstance())
+        preferences.getString(key, d)
+    }
+
+    public static boolean getBoolean(String key, boolean d) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getInstance())
+        preferences.getBoolean(key, d)
+    }
+
+    public static int getInt(String key, int d) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getInstance())
+        preferences.getInt(key, d)
     }
 }

@@ -4,6 +4,8 @@
 
         <ListPreference
             android:defaultValue="dark"
+            android:entries="@array/pref_theme_list_entries"
+            android:entryValues="@array/pref_theme_list_values"
             android:key="@string/key_theme"
             android:summary="%s"
             android:title="@string/setting_theme" />
@@ -14,6 +16,14 @@
             android:summaryOff="@string/summary_off_open"
             android:summaryOn="@string/summary_on_open"
             android:title="@string/title_open" />
+
+        <ListPreference
+            android:defaultValue="10"
+            android:entries="@array/entries_num"
+            android:entryValues="@array/values_num"
+            android:key="@string/key_num"
+            android:summary="@string/summary_num"
+            android:title="@string/title_num" />
 
     </PreferenceCategory>
 

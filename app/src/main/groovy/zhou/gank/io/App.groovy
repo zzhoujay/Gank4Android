@@ -1,6 +1,10 @@
 package zhou.gank.io
 
+import android.app.Activity
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.net.Uri
 import android.widget.Toast
 import com.bettervectordrawable.VectorDrawableCompat
 import com.google.gson.Gson
@@ -61,5 +65,33 @@ class App extends Application {
 
     static File cacheFile() {
         return app.getCacheDir();
+    }
+
+    static void copy(String text) {
+        ClipboardManager myClipboard;
+        myClipboard = (ClipboardManager) app.getSystemService(CLIPBOARD_SERVICE);
+        ClipData myClip;
+        myClip = ClipData.newPlainText("text", text);
+        myClipboard.setPrimaryClip(myClip);
+    }
+
+    static void copyUri(Uri uri) {
+        ClipboardManager myClipboard;
+        myClipboard = (ClipboardManager) app.getSystemService(CLIPBOARD_SERVICE);
+        ClipData myClip;
+        myClip = ClipData.newUri(app.getContentResolver(), "URI", uri);
+        myClipboard.setPrimaryClip(myClip);
+    }
+
+    static void setTheme(Activity activity) {
+        String theme = Config.getString(getStr(R.string.key_theme), "Light")
+        switch (theme) {
+            case "Light":
+                activity.setTheme(R.style.AppTheme)
+                break
+            case "Dark":
+                activity.setTheme(R.style.AppThemeDark)
+                break
+        }
     }
 }
