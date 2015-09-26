@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -12,18 +13,16 @@ import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
 import zhou.gank.io.ui.fragment.DailyFragment
-import zhou.gank.io.ui.fragment.GankFragment
 import zhou.gank.io.util.Notifier
 
 @CompileStatic
-class HomeActivity extends AppCompatActivity implements Notifier{
+class HomeActivity extends AppCompatActivity implements Notifier {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     CoordinatorLayout coordinatorLayout;
 
     private DailyFragment dailyFragment;
-    private GankFragment androidFragment;
     private Fragment currFragment;
 
     @Override
@@ -33,8 +32,7 @@ class HomeActivity extends AppCompatActivity implements Notifier{
 
         initView();
 
-        dailyFragment = new DailyFragment();
-        androidFragment = GankFragment.newInstance(Config.Type.ANDROID, true) as GankFragment
+        dailyFragment = DailyFragment.newInstance(2015, 9, 25)
 
         add(dailyFragment)
     }
@@ -61,8 +59,16 @@ class HomeActivity extends AppCompatActivity implements Notifier{
                     intent.putExtra(Config.Static.IS_RANDOM, true)
                     startActivity(intent)
                     return true
+                case R.id.nav_info:
+
+                    return true
+                case R.id.nav_setting:
+
+                    return true
             }
+            return false
         })
+
     }
 
     def add(Fragment f) {
@@ -81,7 +87,10 @@ class HomeActivity extends AppCompatActivity implements Notifier{
 
     @Override
     void notice(int noticeId) {
-        switch (noticeId){
+        switch (noticeId) {
+            case Config.Action.OPEN_DRAWER_LAYOUT:
+                drawerLayout.openDrawer(GravityCompat.START)
+                break
         }
     }
 }

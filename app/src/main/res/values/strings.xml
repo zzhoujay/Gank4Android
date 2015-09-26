@@ -18,4 +18,7 @@
     <string name="failure_get">获取数据失败</string>
     <string name="text_loading">加载中。。。</string>
     <string name="nav_type">分类浏览</string>
+    <string name="nav_option">操作</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_info">关于</string>
 </resources>

@@ -13,10 +13,14 @@
             android:title="@string/nav_random" />
     </group>
 
-    <item android:title="Sub items">
+    <item android:title="@string/nav_option">
         <menu>
-            <item android:title="Sub item 1" />
-            <item android:title="Sub item 2" />
+            <item
+                android:id="@+id/nav_setting"
+                android:title="@string/nav_setting" />
+            <item
+                android:id="@+id/nav_info"
+                android:title="@string/nav_info" />
         </menu>
     </item>
 

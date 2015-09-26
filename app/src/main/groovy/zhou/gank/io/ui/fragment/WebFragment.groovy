@@ -66,7 +66,7 @@ public class WebFragment extends BaseFragment {
             @Override
             void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title)
-                getActivity().setTitle(title)
+                getActivity()?.setTitle(title)
             }
         });
 

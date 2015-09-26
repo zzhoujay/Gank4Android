@@ -31,7 +31,7 @@ class DailyAdapter extends BaseAdapter<Holder> {
 
     @Override
     int getItemCount() {
-        return ganks == null ? 0 : ganks.size()
+        return daily == null ? 0 : daily.size()
     }
 
     static class Holder extends RecyclerView.ViewHolder {
