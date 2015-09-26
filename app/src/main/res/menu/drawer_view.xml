@@ -4,12 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_daily"
+            android:icon="@drawable/ic_event_48px"
             android:title="@string/nav_daily" />
         <item
             android:id="@+id/nav_type"
+            android:icon="@drawable/ic_dashboard_48px"
             android:title="@string/nav_type" />
         <item
             android:id="@+id/nav_random"
+            android:icon="@drawable/ic_extension_48px"
             android:title="@string/nav_random" />
     </group>
 
@@ -17,9 +20,11 @@
         <menu>
             <item
                 android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_settings_black_48px"
                 android:title="@string/nav_setting" />
             <item
                 android:id="@+id/nav_info"
+                android:icon="@drawable/ic_info_48px"
                 android:title="@string/nav_info" />
         </menu>
     </item>

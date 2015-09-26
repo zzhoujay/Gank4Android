@@ -44,6 +44,8 @@
     <string name="title_num">显示数量</string>
     <string name="summary_num">每页显示的数量</string>
 
+    <string name="confirm">确定</string>
+
     <string-array name="pref_theme_list_entries">
         <item>Dark</item>
         <item>Light</item>

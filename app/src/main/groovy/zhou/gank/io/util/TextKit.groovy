@@ -29,4 +29,17 @@ class TextKit {
         }
         return builder;
     }
+
+    public static CharSequence getInfo() {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        int start = 0
+        builder.append("gank.io\n")
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.append("Android 客户端。\n")
+        builder.append("项目地址：")
+        start = builder.length()
+        builder.append("git@osc")
+        builder.setSpan(new URLSpanNoUnderline("https://git.oschina.net/zzhoujay/Gank4Android.git"), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return builder
+    }
 }

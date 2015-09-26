@@ -23,6 +23,8 @@ class Config {
 
         public static final String TITLE = "title"
 
+        public static final String CONTENT = "content"
+
         public static final String IS_RANDOM = "is_random"
 
         public static final String IS_IMAGE = "is_image"

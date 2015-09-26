@@ -146,7 +146,7 @@ public class GankFragment extends AdvanceFragment {
     }
 
     protected void showMore() {
-        if (manager.getItemCount() <= manager.findLastVisibleItemPosition() - manager.findFirstVisibleItemPosition() + 1)
+        if (manager.getItemCount() > manager.findLastVisibleItemPosition() - manager.findFirstVisibleItemPosition() + 1)
             more?.setVisibility(View.VISIBLE)
     }
 

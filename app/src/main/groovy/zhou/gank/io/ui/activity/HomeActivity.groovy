@@ -12,8 +12,10 @@ import android.view.MenuItem
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
+import zhou.gank.io.ui.dialog.InfoDialog
 import zhou.gank.io.ui.fragment.DailyFragment
 import zhou.gank.io.util.Notifier
+import zhou.gank.io.util.TextKit
 
 @CompileStatic
 class HomeActivity extends AppCompatActivity implements Notifier {
@@ -60,7 +62,8 @@ class HomeActivity extends AppCompatActivity implements Notifier {
                     startActivity(intent)
                     return true
                 case R.id.nav_info:
-
+                    def info = InfoDialog.newInstance(getString(R.string.nav_info), TextKit.getInfo())
+                    info.show(getSupportFragmentManager(), "info")
                     return true
                 case R.id.nav_setting:
                     def intent1 = new Intent(this, SettingActivity.class)
