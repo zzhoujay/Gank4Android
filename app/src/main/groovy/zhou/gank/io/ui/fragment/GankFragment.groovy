@@ -61,7 +61,7 @@ public class GankFragment extends AdvanceFragment {
             adapter = new GankAdapter()
         }
 
-        adapter.setClickListener { gank,p ->
+        adapter.setClickListener { gank,p=null ->
             def gs = gank as Gank
             boolean flag = Config.getBoolean(getString(R.string.key_open), true)
             if (!flag) {
