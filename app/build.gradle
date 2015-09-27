@@ -52,5 +52,7 @@ dependencies {
     compile 'com.bettervectordrawable:lib:0.4'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'zhou.widget:advanceadapter:1.0'
+    compile project(':imagegallery')
 }

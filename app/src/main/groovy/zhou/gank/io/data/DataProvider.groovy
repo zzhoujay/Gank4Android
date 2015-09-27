@@ -68,4 +68,10 @@ interface DataProvider<T> {
     @NonNull
     String key();
 
+    /**
+     * 设置provide能否发出提醒
+     * @param noticeable
+     */
+    void setNoticeable(boolean noticeable)
+
 }

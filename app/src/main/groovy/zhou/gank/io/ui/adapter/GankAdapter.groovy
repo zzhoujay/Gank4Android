@@ -1,11 +1,13 @@
 package zhou.gank.io.ui.adapter
 
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import groovy.transform.CompileStatic
+import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.model.Gank
 import zhou.gank.io.util.TimeKit
@@ -19,11 +21,7 @@ public class GankAdapter extends BaseAdapter<Holder> {
     Holder onCreateViewHolder(ViewGroup viewGroup, int i) {
         def holder = new Holder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_gank, null))
         holder.setListener { p ->
-
             Gank gank = ganks?.get(p as int)
-            assert clickListener!=null
-            println(clickListener.class.name)
-            println(gank)
             clickListener?.call(gank)
         }
         return holder
@@ -55,6 +53,15 @@ public class GankAdapter extends BaseAdapter<Holder> {
             title = itemView.findViewById(R.id.title) as TextView
             user = itemView.findViewById(R.id.user) as TextView
             time = itemView.findViewById(R.id.time) as TextView
+
+            if (itemView instanceof CardView) {
+                def card = itemView as CardView
+                if (App.themeIsLight()) {
+                    card.setCardBackgroundColor(App.getInstance().getCardLight())
+                } else {
+                    card.setCardBackgroundColor(App.getInstance().getCardDark())
+                }
+            }
 
             itemView.setOnClickListener({ v ->
                 listener?.call(getAdapterPosition())

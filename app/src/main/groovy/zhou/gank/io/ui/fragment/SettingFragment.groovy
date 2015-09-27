@@ -1,9 +1,11 @@
 package zhou.gank.io.ui.fragment
 
 import android.os.Bundle
+import android.preference.ListPreference
 import android.preference.Preference
 import android.preference.PreferenceFragment
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceScreen
+import android.widget.Toast;
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
@@ -15,6 +17,14 @@ public class SettingFragment extends PreferenceFragment {
     void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.setting)
+
+        ListPreference themes = findPreference(getString(R.string.key_theme)) as ListPreference
+        themes.setOnPreferenceChangeListener({ preference, o ->
+            App.themeChanged()
+            getActivity().recreate()
+            Toast.makeText(getActivity(), "设置成功", Toast.LENGTH_SHORT).show()
+            return true
+        })
     }
 
     @Override
@@ -25,7 +35,6 @@ public class SettingFragment extends PreferenceFragment {
                 if (g) {
                     App.toast(R.string.success_clear)
                 }
-                return g
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference)
     }

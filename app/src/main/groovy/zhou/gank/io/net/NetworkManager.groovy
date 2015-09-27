@@ -39,9 +39,9 @@ class NetworkManager {
 
     private NetworkManager(Context context, Gson gson) {
         client = new OkHttpClient()
-        client.setConnectTimeout(3, TimeUnit.SECONDS)
-        client.setReadTimeout(3, TimeUnit.SECONDS)
-        client.setWriteTimeout(3, TimeUnit.SECONDS)
+        client.setConnectTimeout(5, TimeUnit.SECONDS)
+        client.setReadTimeout(5, TimeUnit.SECONDS)
+        client.setWriteTimeout(5, TimeUnit.SECONDS)
         this.gson = gson;
         this.context = context
         handler = new Handler(Looper.getMainLooper())

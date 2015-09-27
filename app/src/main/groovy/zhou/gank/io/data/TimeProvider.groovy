@@ -17,17 +17,19 @@ import zhou.gank.io.util.NetworkKit
 @CompileStatic
 class TimeProvider implements DataProvider<GankDaily> {
 
-    private GankDaily daily;
-    private int year, month, day;
-    private String key;
-    private File file;
+    private GankDaily daily
+    int year, month, day
+    private String key
+    private File file
+    private boolean noticeable
 
     TimeProvider(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.year = year
+        this.month = month
+        this.day = day
         key = HashKit.md5("year:$year,month:$month,day:$day-cache")
-        file = new File(App.cacheFile(), key);
+        file = new File(App.cacheFile(), key)
+        LogKit.i("time", "year:$year,month:$month,day:$day-cache")
     }
 
     @Override
@@ -39,19 +41,19 @@ class TimeProvider implements DataProvider<GankDaily> {
                 } catch (Exception e) {
                     LogKit.d("persistence", "time", e)
                 }
-            }).start();
+            }).start()
         }
     }
 
     @Nullable
     @Override
     GankDaily get() {
-        return daily;
+        return daily
     }
 
     @Override
     void set(@Nullable GankDaily ganHuos, boolean more) {
-        this.daily = ganHuos;
+        this.daily = ganHuos
     }
 
     @Override
@@ -72,42 +74,65 @@ class TimeProvider implements DataProvider<GankDaily> {
         if (NetworkManager.getInstance().isNetworkConnected()) {
             NetworkKit.time(year, month, day, { result ->
                 def d = null
-                if(result instanceof ResultDaily){
+                if (result instanceof ResultDaily) {
                     def r = result as ResultDaily
                     if (r.isSuccess()) {
                         d = r.results
                     } else {
-                        App.toast(R.string.failure_get)
+                        if (noticeable)
+                            App.toast(R.string.failure_get)
                     }
                 }
                 closure?.call(d)
             })
         } else {
             closure?.call()
-            App.toast(R.string.error_network)
+            if (noticeable)
+                App.toast(R.string.error_network)
         }
     }
 
     @Override
     public boolean hasLoad() {
-        return daily != null;
+        return daily != null
     }
 
     @Override
     public boolean needCache() {
-        return true;
+        return true
     }
 
     @Override
     public boolean clearCache() {
-        return file.exists() && file.delete();
+        return file.exists() && file.delete()
     }
 
     @NonNull
     @Override
     public String key() {
-        return key;
+        return key
     }
 
+    @Override
+    void setNoticeable(boolean noticeable) {
+        this.noticeable = noticeable
+    }
 
+    public TimeProvider getNextDay() {
+        Calendar calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month - 1)
+        calendar.set(Calendar.DAY_OF_MONTH, day)
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        return new TimeProvider(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH))
+    }
+
+    public TimeProvider getPrevDay() {
+        Calendar calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month - 1)
+        calendar.set(Calendar.DAY_OF_MONTH, day)
+        calendar.add(Calendar.DAY_OF_MONTH, -1)
+        return new TimeProvider(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH))
+    }
 }

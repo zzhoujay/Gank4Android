@@ -3,7 +3,7 @@
     <PreferenceCategory android:title="@string/title_base">
 
         <ListPreference
-            android:defaultValue="dark"
+            android:defaultValue="light"
             android:entries="@array/pref_theme_list_entries"
             android:entryValues="@array/pref_theme_list_values"
             android:key="@string/key_theme"

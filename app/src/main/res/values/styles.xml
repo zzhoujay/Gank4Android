@@ -17,4 +17,8 @@
 
     </style>
 
+    <style name="AppTheme.TabDark" parent="AppThemeDark">
+
+    </style>
+
 </resources>

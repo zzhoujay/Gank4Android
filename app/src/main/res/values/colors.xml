@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="loading_background">#55000000</color>
+
+    <color name="light_background">#fafafa</color>
+    <color name="dark_background">@color/material_grey_800</color>
+
     <!-- Red -->
     <color name="material_red_50">#fde0dc</color>
     <color name="material_red_100">#f9bdbb</color>

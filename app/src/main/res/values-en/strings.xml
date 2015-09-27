@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gank.io</string>
+    <string name="confirm">confirm</string>
+    <string name="error">Error!</string>
+    <string name="error_network">The network connection is not available, please check the network connection and try again</string>
+    <string name="failure_get">Failed to get the data</string>
+    <string name="loading">Loading…</string>
+    <string name="menu_collect">collect</string>
+    <string name="menu_copy">Copy the URL</string>
+    <string name="menu_open">Open in browser</string>
+    <string name="nav_setting">Setting</string>
+    <string name="nav_type">Category</string>
+    <string name="no_data">Empty!</string>
+    <string name="setting_theme">Theme</string>
+    <string name="success_clear">Cache to clear success</string>
+    <string name="success_copy">The URL is copied to the clipboard</string>
+    <string name="summary_clear">Clear the cache</string>
+    <string name="summary_num">The number of each page show</string>
+    <string name="summary_off_open">Using the system browser open the link</string>
+    <string name="summary_on_open">Use the built-in browser open the link</string>
+    <string name="title_base">Base</string>
+    <string name="title_num">Number</string>
+    <string name="title_open">In this application to open URL</string>
+    <string name="title_option">Option</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_theme">Select Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="nav_daily">Today</string>
+    <string name="nav_info">About</string>
+    <string name="nav_option">Option</string>
+    <string name="nav_random">Luck</string>
+    <string name="month">-</string>
+    <string name="year">-</string>
+    <string name="day"> </string>
+</resources>

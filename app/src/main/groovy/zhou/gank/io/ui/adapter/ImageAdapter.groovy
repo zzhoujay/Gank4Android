@@ -20,6 +20,10 @@ public class ImageAdapter extends BaseAdapter<Holder> {
     @Override
     Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         Holder holder = new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, null))
+        holder.setListener { p ->
+            Gank gank = ganks?.get(p as int)
+            clickListener?.call(gank,p)
+        }
         return holder
     }
 
@@ -42,12 +46,22 @@ public class ImageAdapter extends BaseAdapter<Holder> {
         ImageView icon
         TextView who, time
 
+        Closure listener
+
         Holder(View itemView) {
             super(itemView)
 
             icon = itemView.findViewById(R.id.icon) as ImageView
             who = itemView.findViewById(R.id.who) as TextView
             time = itemView.findViewById(R.id.time) as TextView
+
+            itemView.setOnClickListener({ v ->
+                listener?.call(getAdapterPosition())
+            })
+        }
+
+        void setListener(Closure listener) {
+            this.listener = listener
         }
     }
 

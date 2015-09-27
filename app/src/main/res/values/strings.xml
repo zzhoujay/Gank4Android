@@ -1,37 +1,44 @@
 <resources>
     <string name="app_name">Gank.io</string>
 
-    <string name="nav_ios">iOS</string>
-    <string name="nav_android">Android</string>
-    <string name="nav_recommend">瞎推荐</string>
-    <string name="nav_resource">拓展资源</string>
-    <string name="nav_welfare">福利</string>
-    <string name="nav_video">休息视频</string>
+    <string name="loading">加载中。。。</string>
+    <string name="no_data">没有数据!</string>
+    <string name="error">出错了!</string>
+
+    <string name="text_no_data" translatable="false">今天没有干货哦</string>
+    <string name="text_error" translatable="false">加载干货失败。。。点击重新加载</string>
+
+    <string name="nav_ios" translatable="false">iOS</string>
+    <string name="nav_android" translatable="false">Android</string>
+    <string name="nav_recommend" translatable="false">瞎推荐</string>
+    <string name="nav_resource" translatable="false">拓展资源</string>
+    <string name="nav_welfare" translatable="false">福利</string>
+    <string name="nav_video" translatable="false">休息视频</string>
     <string name="nav_daily">今天</string>
     <string name="nav_random">试试运气</string>
-    <string name="test_user">zzhoujay</string>
-    <string name="test_title">测试标题。。。。。。。。。。。。。。。</string>
-    <string name="test_time">2015年9月23日</string>
+    <string name="test_user" translatable="false">zzhoujay</string>
+    <string name="test_title" translatable="false">测试标题。。。。。。。。。。。。。。。</string>
+    <string name="test_time" translatable="false">2015年9月23日</string>
 
     <string name="error_network">网络连接不可用，请检查网络连接后重试</string>
 
     <string name="failure_get">获取数据失败</string>
-    <string name="text_loading">加载中。。。</string>
+    <string name="text_loading" translatable="false">加载中。。。</string>
     <string name="nav_type">分类浏览</string>
     <string name="nav_option">操作</string>
     <string name="nav_setting">设置</string>
     <string name="nav_info">关于</string>
-    <string name="key_theme">key_theme</string>
+    <string name="key_theme" translatable="false">key_theme</string>
     <string name="setting_theme">主题</string>
-    <string name="key_open">key_open</string>
+    <string name="key_open" translatable="false">key_open</string>
     <string name="summary_on_open">使用内置浏览器打开链接</string>
     <string name="summary_off_open">使用系统浏览器打开链接</string>
     <string name="title_base">基本</string>
     <string name="title_option">操作</string>
     <string name="summary_clear">清除缓存</string>
-    <string name="key_clear">key_clear</string>
+    <string name="key_clear" translatable="false">key_clear</string>
     <string name="title_theme">选择主题</string>
-    <string name="title_open">在本应用内打开</string>
+    <string name="title_open">在本应用内打开链接</string>
     <string name="title_setting">设置</string>
     <string name="menu_copy">复制链接</string>
     <string name="menu_open">在浏览器中打开</string>
@@ -39,20 +46,25 @@
     <string name="success_copy">链接已复制到剪贴板</string>
     <string name="success_clear">缓存清除成功</string>
 
-    <string name="hehe">呵呵呵</string>
-    <string name="key_num">key_num</string>
+    <string name="key_num" translatable="false">key_num</string>
     <string name="title_num">显示数量</string>
     <string name="summary_num">每页显示的数量</string>
 
     <string name="confirm">确定</string>
 
+    <string name="light">亮主题</string>
+    <string name="dark">暗主题</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+
     <string-array name="pref_theme_list_entries">
-        <item>Dark</item>
-        <item>Light</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
     </string-array>
     <string-array name="pref_theme_list_values">
-        <item>dark</item>
         <item>light</item>
+        <item>dark</item>
     </string-array>
 
     <string-array name="entries_num">

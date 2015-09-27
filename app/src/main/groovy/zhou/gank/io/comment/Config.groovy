@@ -13,6 +13,8 @@ class Config {
         public static int DEFAULT_SIZE = 10
 
         public static boolean HANDLE_BY_ME = true
+
+        public static int MAX_iteration = 7
     }
 
     public static class Static {
@@ -28,6 +30,8 @@ class Config {
         public static final String IS_RANDOM = "is_random"
 
         public static final String IS_IMAGE = "is_image"
+
+        public static final String IS_MAIN = "is_main"
 
         public static final String YEAR = "year"
 
@@ -65,6 +69,12 @@ class Config {
 
         //打开drawerLayout
         public static final int OPEN_DRAWER_LAYOUT = 0x111111
+
+        public static final int CHANGE_DATE = 0x222222
+
+        public static final int FINISH = 0x333333
+
+        public static final int RESTART = 0x444444
     }
 
     public static String getString(String key, String d) {

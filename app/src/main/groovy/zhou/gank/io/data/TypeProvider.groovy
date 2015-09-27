@@ -13,16 +13,17 @@ import zhou.gank.io.util.*
 @CompileStatic
 class TypeProvider implements DataProvider<List<Gank>> {
 
-    private List<Gank> ganks;
-    private File file;
-    private String type, key;
-    private Pageable pageable;
+    private List<Gank> ganks
+    private File file
+    private String type, key
+    private Pageable pageable
+    private boolean noticeable
 
     TypeProvider(String type, int size) {
         this.type = type;
-        key = HashKit.md5("$type-cache");
-        file = new File(App.cacheFile(), key);
-        pageable = new Pageable(1, size);
+        key = HashKit.md5("$type-cache")
+        file = new File(App.cacheFile(), key)
+        pageable = new Pageable(1, size)
     }
 
     @Override
@@ -34,22 +35,22 @@ class TypeProvider implements DataProvider<List<Gank>> {
                 } catch (Exception e) {
                     LogKit.d("persistence", "type", e)
                 }
-            }).start();
+            }).start()
         }
     }
 
     @Nullable
     @Override
     List<Gank> get() {
-        return ganks;
+        return ganks
     }
 
     @Override
     void set(@Nullable List<Gank> ganHuos, boolean more) {
         if (more && ganHuos != null && hasLoad()) {
-            this.ganks.addAll(ganHuos);
+            this.ganks.addAll(ganHuos)
         } else {
-            this.ganks = ganHuos;
+            this.ganks = ganHuos
         }
     }
 
@@ -74,7 +75,7 @@ class TypeProvider implements DataProvider<List<Gank>> {
             }
             NetworkKit.type(type, pageable.pageSize, pageable.pageNo, { result ->
                 def gks = null
-                if(result instanceof Result){
+                if (result instanceof Result) {
                     def r = result as Result
                     if (r?.isSuccess()) {
                         gks = r.results
@@ -82,38 +83,45 @@ class TypeProvider implements DataProvider<List<Gank>> {
                         if (more) {
                             pageable.prev()
                         }
-                        App.toast(R.string.failure_get)
+                        if (noticeable)
+                            App.toast(R.string.failure_get)
                     }
-                }else {
-                    App.toast(result as String)
+                } else {
+                    if (noticeable)
+                        App.toast(result as String)
                 }
                 closure?.call(gks)
             })
         } else {
-            App.toast(R.string.error_network)
+            if (noticeable)
+                App.toast(R.string.error_network)
             closure?.call()
         }
     }
 
     @Override
     boolean hasLoad() {
-        return ganks != null;
+        return ganks != null
     }
 
     @Override
     boolean needCache() {
-        return true;
+        return true
     }
 
     @Override
     boolean clearCache() {
-        return file.exists() && file.delete();
+        return file.exists() && file.delete()
     }
 
     @NonNull
     @Override
     String key() {
-        return key;
+        return key
     }
 
+    @Override
+    void setNoticeable(boolean noticeable) {
+        this.noticeable = noticeable
+    }
 }

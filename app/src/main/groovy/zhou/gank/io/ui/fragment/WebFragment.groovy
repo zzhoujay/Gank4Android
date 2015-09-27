@@ -129,9 +129,9 @@ public class WebFragment extends BaseFragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
                 return true
-            case R.id.menu_collect:
-                App.toast(R.string.hehe)
-                return true
+//            case R.id.menu_collect:
+//                App.toast(R.string.hehe)
+//                return true
         }
         return super.onOptionsItemSelected(item)
     }

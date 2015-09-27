@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:clickable="true"
     android:foreground="?android:selectableItemBackground"
     android:padding="5dp"
@@ -12,39 +14,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/user"
-            android:text="@string/test_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:textSize="@dimen/material_body" />
 
         <TextView
             android:id="@+id/title"
-            android:text="@string/test_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="5dp"
-            android:layout_toLeftOf="@id/user"
             android:gravity="start"
-            android:layout_toStartOf="@id/user"
             android:padding="5dp"
+            android:text="@string/test_title"
             android:textColor="@color/material_lightBlue_500"
             android:textSize="@dimen/material_sub_head" />
 
         <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/title"
+            android:layout_centerVertical="true"
+            android:layout_margin="8dp"
+            android:text="@string/test_user"
+            android:textSize="@dimen/material_caption" />
+
+        <TextView
             android:id="@+id/time"
-            android:text="@string/test_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_margin="8dp"
+            android:text="@string/test_time"
             android:textColor="@color/material_grey_500"
             android:textSize="@dimen/material_caption" />
     </RelativeLayout>

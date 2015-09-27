@@ -1,9 +1,9 @@
 package zhou.gank.io.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
@@ -16,9 +16,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import com.squareup.picasso.Picasso
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -39,7 +37,11 @@ class DailyFragment extends BaseFragment {
     TimeProvider provider
     DailyAdapter dailyAdapter;
     ViewPager viewPager
+    FloatingActionButton fab
+    View loading, loadingProgress, empty, error
+    boolean isMain = false
     int year, month, day
+    int count
 
 
     @Override
@@ -52,9 +54,10 @@ class DailyFragment extends BaseFragment {
         month = time[1]
         day = time[2]
         if (b) {
-            year = b.getInt(Config.Static.YEAR)
-            month = b.getInt(Config.Static.MONTH)
-            day = b.getInt(Config.Static.DAY)
+            year = b.getInt(Config.Static.YEAR, year)
+            month = b.getInt(Config.Static.MONTH, month)
+            day = b.getInt(Config.Static.DAY, day)
+            isMain = b.getBoolean(Config.Static.IS_MAIN, false)
         }
 
         provider = new TimeProvider(year, month, day)
@@ -68,19 +71,21 @@ class DailyFragment extends BaseFragment {
         toolbar = view.findViewById(R.id.toolbar) as Toolbar
         collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
-//        icon = view.findViewById(R.id.icon) as ImageView
         viewPager = view.findViewById(R.id.viewpager) as ViewPager
+        fab = view.findViewById(R.id.fab) as FloatingActionButton
+        loading = view.findViewById(R.id.loading)
+        loadingProgress = view.findViewById(R.id.progressBar)
+        empty = view.findViewById(R.id.no_data)
+        error = view.findViewById(R.id.error)
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_48px);
+            if (isMain)
+                ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_48px);
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        String title = getString(R.string.app_name);
-        collapsingToolbarLayout.setTitle(title);
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
         toolbar.setTitle(R.string.app_name);
 
         dailyAdapter = new DailyAdapter();
@@ -88,7 +93,15 @@ class DailyFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()))
         recyclerView.setAdapter(dailyAdapter)
 
-        DataManager.getInstance().get(provider, this.&setUpData)
+        requestDaily()
+
+        fab.setOnClickListener({ v ->
+            noticeActivity(Config.Action.CHANGE_DATE)
+        })
+
+        error.setOnClickListener({ v ->
+            requestDaily()
+        })
 
         return view;
     }
@@ -96,8 +109,23 @@ class DailyFragment extends BaseFragment {
     protected void setUpData(GankDaily daily) {
         if (daily) {
             if (daily.isEmpty()) {
-                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show()
+                if (isMain) {
+                    if (count > Config.Configurable.MAX_iteration) {
+                        setTitle(provider.year,provider.month,provider.day)
+                        setEmpty()
+                    } else {
+                        count++
+                        provider = provider.getPrevDay()
+                        DataManager.getInstance().get(provider, this.&setUpData)
+                    }
+                } else {
+                    // Empty
+                    setTitle(provider.year,provider.month,provider.day)
+                    setEmpty()
+                }
             } else {
+                // Success
+                setTitle(provider.year,provider.month,provider.day)
                 List<List<Gank>> ganks = daily.ganks
                 List<String> types = daily.types
                 List<Gank> welfares = ganks.get(types.indexOf(Config.Type.WELFARE))
@@ -118,16 +146,18 @@ class DailyFragment extends BaseFragment {
                     int getCount() {
                         return fs.length
                     }
-                }
+                } as PagerAdapter
 
                 viewPager.setAdapter(adapter)
 
-//                Picasso.with(getActivity()).load(ganks.get(types.indexOf(Config.Type.WELFARE)).get(0).url).into(icon)
-
                 dailyAdapter.setDaily(daily)
+
+                setSuccess()
             }
         } else {
-            Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_SHORT).show()
+            // Error
+            setTitle(provider.year,provider.month,provider.day)
+            setError()
         }
     }
 
@@ -135,21 +165,69 @@ class DailyFragment extends BaseFragment {
     boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                noticeActivity(Config.Action.OPEN_DRAWER_LAYOUT)
+                if (isMain) {
+                    noticeActivity(Config.Action.OPEN_DRAWER_LAYOUT)
+                } else {
+                    noticeActivity(Config.Action.FINISH)
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    static DailyFragment newInstance(int year = -1, int month = -1, int day = -1) {
+    def setTitle(String title) {
+        collapsingToolbarLayout.setTitle(title);
+    }
+
+    def requestDaily() {
+        setTitle(getString(R.string.loading))
+        setLoading()
+        DataManager.getInstance().get(provider, this.&setUpData)
+    }
+
+    def requestData() {
+        DataManager.getInstance().get(provider, this.&setUpData)
+    }
+
+    def setLoading() {
+        loading.setVisibility(View.VISIBLE)
+        loadingProgress.setVisibility(View.VISIBLE)
+        empty.setVisibility(View.GONE)
+        error.setVisibility(View.GONE)
+    }
+
+    def setSuccess() {
+        loading.setVisibility(View.INVISIBLE)
+    }
+
+    def setError() {
+        loading.setVisibility(View.VISIBLE)
+        loadingProgress.setVisibility(View.GONE)
+        empty.setVisibility(View.INVISIBLE)
+        error.setVisibility(View.VISIBLE)
+    }
+
+    def setEmpty() {
+        loading.setVisibility(View.VISIBLE)
+        loadingProgress.setVisibility(View.GONE)
+        empty.setVisibility(View.VISIBLE)
+        error.setVisibility(View.GONE)
+    }
+
+    def setTitle(int year, int month, int day) {
+        setTitle("${year}${getString(R.string.year)}${month}${getString(R.string.month)}${day}${getString(R.string.day)}")
+    }
+
+    static DailyFragment newInstance(int year = -1, int month = -1, int day = -1, boolean isMain = false) {
         DailyFragment fragment = new DailyFragment()
+        Bundle bundle = new Bundle()
         if (year > 0 && month > 0 && day > 0) {
-            Bundle bundle = new Bundle()
             bundle.putInt(Config.Static.YEAR, year)
             bundle.putInt(Config.Static.MONTH, month)
             bundle.putInt(Config.Static.DAY, day)
-            fragment.setArguments(bundle)
         }
+        bundle.putBoolean(Config.Static.IS_MAIN, isMain)
+        fragment.setArguments(bundle)
         return fragment
     }
 }

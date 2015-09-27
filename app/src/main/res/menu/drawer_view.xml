@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_daily"
-            android:icon="@drawable/ic_event_48px"
-            android:title="@string/nav_daily" />
-        <item
-            android:id="@+id/nav_type"
-            android:icon="@drawable/ic_dashboard_48px"
-            android:title="@string/nav_type" />
-        <item
-            android:id="@+id/nav_random"
-            android:icon="@drawable/ic_extension_48px"
-            android:title="@string/nav_random" />
-    </group>
+    <item android:title="@string/app_name">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_daily"
+                    android:icon="@drawable/ic_event_48px"
+                    android:title="@string/nav_daily" />
+                <item
+                    android:id="@+id/nav_type"
+                    android:icon="@drawable/ic_dashboard_48px"
+                    android:title="@string/nav_type" />
+                <item
+                    android:id="@+id/nav_random"
+                    android:icon="@drawable/ic_extension_48px"
+                    android:title="@string/nav_random" />
+            </group>
+        </menu>
+    </item>
 
     <item android:title="@string/nav_option">
         <menu>

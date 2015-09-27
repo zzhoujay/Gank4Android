@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem;
 import groovy.transform.CompileStatic
+import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
 import zhou.gank.io.ui.fragment.GankFragment
@@ -30,6 +31,11 @@ public class TabActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (App.themeIsLight()) {
+            setTheme(R.style.AppTheme_Tab)
+        } else {
+            setTheme(R.style.AppTheme_TabDark)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab)
 

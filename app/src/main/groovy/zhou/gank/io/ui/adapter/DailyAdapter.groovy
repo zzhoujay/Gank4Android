@@ -1,5 +1,6 @@
 package zhou.gank.io.ui.adapter
 
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -40,8 +41,20 @@ class DailyAdapter extends BaseAdapter<Holder> {
 
         public Holder(View itemView) {
             super(itemView);
+
             title = (TextView) itemView.findViewById(R.id.title);
             content = (TextView) itemView.findViewById(R.id.content);
+
+            if (itemView instanceof CardView) {
+                def card = itemView as CardView
+                if (App.themeIsLight()) {
+                    card.setCardBackgroundColor(App.getInstance().getCardLight())
+                    title.setTextColor(App.getInstance().getTextLight())
+                } else {
+                    card.setCardBackgroundColor(App.getInstance().getCardDark())
+                    title.setTextColor(App.getInstance().getTextDark())
+                }
+            }
 
             content.setMovementMethod(LinkMovementMethod.getInstance());
         }

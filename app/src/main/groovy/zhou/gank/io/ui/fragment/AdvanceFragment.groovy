@@ -15,6 +15,7 @@ public class AdvanceFragment extends BaseFragment {
 
     SwipeRefreshLayout swipeRefreshLayout
     RecyclerView recyclerView
+    View error
 
     @Override
     View onCreateView(LayoutInflater inflater,
@@ -35,19 +36,24 @@ public class AdvanceFragment extends BaseFragment {
 
         swipeRefreshLayout.setOnRefreshListener(this.&requestRefresh)
 
+        error = v.findViewById(R.id.error)
+
     }
 
     protected void onFailure() {
         swipeRefreshLayout.setRefreshing(false)
-//        recyclerView.setVisibility(View.INVISIBLE)
+        error.setVisibility(View.VISIBLE)
     }
 
     protected void onSuccess() {
         swipeRefreshLayout.setRefreshing(false)
         recyclerView.setVisibility(View.VISIBLE)
+        error.setVisibility(View.GONE)
     }
 
     protected void requestRefresh(View v = null) {
-
+        swipeRefreshLayout.setRefreshing(true)
+        error.setVisibility(View.GONE)
     }
+
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
 import android.view.MenuItem;
 import groovy.transform.CompileStatic
+import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.ui.fragment.BaseFragment
 
@@ -22,6 +23,7 @@ public class ToolbarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        App.setTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toolbar)
         toolbar = findViewById(R.id.toolbar) as Toolbar

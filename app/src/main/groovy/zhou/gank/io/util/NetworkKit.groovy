@@ -12,7 +12,12 @@ class NetworkKit {
     static void time(int year, int month, int day, Closure closure) {
         Request request = new Request.Builder().get().url("$App.TIME_URL/$year/$month/$day").build()
         NetworkManager.getInstance().requestString(request, { result ->
-            closure(JsonKit.generate(result as String, App.getInstance().getGson()))
+            try{
+                closure(JsonKit.generate(result as String, App.getInstance().getGson()))
+            }catch (Exception e){
+                LogKit.d("JsonKit","error",e)
+            }
+            closure()
         })
     }
 

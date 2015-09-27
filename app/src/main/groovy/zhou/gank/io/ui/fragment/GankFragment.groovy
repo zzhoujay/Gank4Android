@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity
+import com.etiennelawlor.imagegallery.library.enums.PaletteColorType
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -59,16 +61,29 @@ public class GankFragment extends AdvanceFragment {
             adapter = new GankAdapter()
         }
 
-        adapter.setClickListener { gank ->
+        adapter.setClickListener { gank,p ->
             def gs = gank as Gank
             boolean flag = Config.getBoolean(getString(R.string.key_open), true)
             if (!flag) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(gs.url))
                 startActivity(intent)
             } else {
-                Intent intent = new Intent(getActivity(), WebActivity.class)
-                intent.putExtra(Config.Static.URL, gs.url)
-                intent.putExtra(Config.Static.TITLE, gs.desc)
+                Intent intent
+                if (isImage) {
+                    intent = new Intent(getActivity(), FullScreenImageGalleryActivity.class)
+                    ArrayList<Gank> ganks = provider.get() as ArrayList<Gank>
+                    ArrayList<String> urls = new ArrayList<>(ganks.size())
+                    ganks.each {
+                        urls << it.url
+                    }
+                    intent.putStringArrayListExtra("images", urls)
+//                    intent.putExtra("palette_color_type", PaletteColorType.VIBRANT)
+                    intent.putExtra("position",p as int)
+                } else {
+                    intent = new Intent(getActivity(), WebActivity.class)
+                    intent.putExtra(Config.Static.URL, gs.url)
+                    intent.putExtra(Config.Static.TITLE, gs.desc)
+                }
                 startActivity(intent)
             }
         }
@@ -124,11 +139,28 @@ public class GankFragment extends AdvanceFragment {
             recyclerView.setAdapter(adapter)
         }
 
-
-
         swipeRefreshLayout.setRefreshing(true)
+        provider.setNoticeable(true)
         DataManager.getInstance().get(provider, this.&setUpData)
 
+        error.setOnClickListener({ view ->
+            swipeRefreshLayout.setRefreshing(true)
+            error.setVisibility(View.GONE)
+            requestRefresh()
+        })
+
+    }
+
+    @Override
+    void onDestroyView() {
+        super.onDestroyView()
+        provider.setNoticeable(false)
+    }
+
+    @Override
+    void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden)
+        provider.setNoticeable(!hidden)
     }
 
     @Override
@@ -148,11 +180,6 @@ public class GankFragment extends AdvanceFragment {
     protected void showMore() {
         if (manager.getItemCount() > manager.findLastVisibleItemPosition() - manager.findFirstVisibleItemPosition() + 1)
             more?.setVisibility(View.VISIBLE)
-    }
-
-    void onClick(Gank gank) {
-        println(this.class.name)
-        Toast.makeText(getActivity(), gank.toString(), Toast.LENGTH_SHORT).show()
     }
 
     static GankFragment newInstance(String type, boolean isRandom = false, boolean isImage = false) {
