@@ -15,6 +15,15 @@ public class TimeKit {
 
     public static List<Integer> getTime() {
         Calendar calendar = Calendar.getInstance()
-        return [calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH)]
+        return [calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)]
+    }
+
+    public static boolean future(int year, int month, int day) {
+        Calendar now = Calendar.getInstance()
+        Calendar calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month - 1)
+        calendar.set(Calendar.DAY_OF_MONTH, day)
+        return calendar.compareTo(now) >= 0
     }
 }

@@ -3,7 +3,7 @@ package zhou.gank.io.util
 import groovy.transform.CompileStatic;
 
 @CompileStatic
-class Pageable {
+class Pageable implements Serializable {
 
     public int pageNo
     public int pageSize
@@ -13,11 +13,14 @@ class Pageable {
         this.pageSize = pageSize
     }
 
-    def next(){
+    Pageable() {
+    }
+
+    def next() {
         pageNo++
     }
 
-    def prev(){
+    def prev() {
         pageNo--
     }
 }

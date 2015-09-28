@@ -1,6 +1,5 @@
 package zhou.gank.io.ui.adapter
 
-import android.support.v7.graphics.Palette
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.etiennelawlor.imagegallery.library.view.PaletteTransformation
-import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
@@ -35,22 +33,7 @@ public class ImageAdapter extends BaseAdapter<Holder> {
     void onBindViewHolder(Holder holder, int position) {
         Gank gank = ganks.get(position)
 
-        Picasso.with(holder.icon.getContext()).load(gank.url).into(holder.icon, new PaletteTransformation.PaletteCallback(holder.icon) {
-            @Override
-            public void onError() {
-
-            }
-
-            @Override
-            public void onSuccess(Palette palette) {
-                def color = palette?.getDarkVibrantColor(0x00695c)
-                if (!color) {
-                    color = 0x00695c
-                }
-                holder.who.setTextColor(color as int)
-                holder.time.setTextColor(color as int)
-            }
-        })
+        Picasso.with(holder.icon.getContext()).load(gank.url).into(holder.icon)
         holder.who.setText(gank.who)
         holder.time.setText(TimeKit.format(gank.createdAt))
     }

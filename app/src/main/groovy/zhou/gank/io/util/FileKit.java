@@ -1,7 +1,9 @@
 package zhou.gank.io.util;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -207,7 +209,7 @@ public class FileKit {
             while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
             content = sb.toString();
         } catch (FileNotFoundException e) {
             Log.d("readString", "error", e);
@@ -246,6 +248,35 @@ public class FileKit {
         } else {
             return decimalFormat.format((float) size / (1024 * 1024)) + "MB";
         }
+    }
+
+    public static void saveBitmapFile(Bitmap bitmap, File file) {
+        FileOutputStream fileOutputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bufferedOutputStream);
+            bufferedOutputStream.flush();
+            bufferedOutputStream.close();
+        } catch (IOException e) {
+            LogKit.d("saveBitmapFile", "error", e);
+        } finally {
+            try {
+                if (bufferedOutputStream != null) {
+                    bufferedOutputStream.close();
+                }
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                LogKit.d("saveBitmapFile", "error", e);
+            }
+        }
+    }
+
+    public static String getFileRealName(String path) {
+        return path.substring(path.lastIndexOf("/") + 1);
     }
 
 }

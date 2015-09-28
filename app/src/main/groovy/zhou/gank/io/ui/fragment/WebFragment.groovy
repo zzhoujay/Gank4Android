@@ -92,6 +92,8 @@ public class WebFragment extends BaseFragment {
         })
 
         webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.getSettings().setSupportZoom(true)
+        webView.getSettings().setDisplayZoomControls(true)
 
         swipeRefreshLayout.setOnRefreshListener({
             webView.reload()
@@ -102,8 +104,8 @@ public class WebFragment extends BaseFragment {
     boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (webView.canGoBack()) {
-                webView.goBack();//返回上一页面
-                return true;
+                webView.goBack()//返回上一页面
+                return true
             } else {
                 getActivity().finish()
                 return true
@@ -134,6 +136,10 @@ public class WebFragment extends BaseFragment {
 //                return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    def collect(){
+
     }
 
     static WebFragment newInstance(String url) {

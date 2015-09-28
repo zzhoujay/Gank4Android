@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.net.Uri
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.bettervectordrawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import groovy.transform.CompileStatic
+import org.litepal.LitePalApplication
 import zhou.gank.io.comment.Config
 import zhou.gank.io.net.NetworkManager
 import zhou.gank.io.util.Notifier
@@ -24,6 +26,15 @@ class App extends Application {
     public static final String TYPE_URL = SITE_URL + "/api/data";
     public static final String TIME_URL = SITE_URL + "/api/day";
     public static final String RANDOM_URL = SITE_URL + "/api/random/data";
+
+    public static
+    final File SAVE_PATH = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "gank")
+
+    static {
+        if (!SAVE_PATH.exists()) {
+            SAVE_PATH.mkdir()
+        }
+    }
 
     private static App app;
 
@@ -39,6 +50,7 @@ class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LitePalApplication.initialize(this)
         app = this;
 
         cardDark = getColor(R.color.cardview_dark_background)

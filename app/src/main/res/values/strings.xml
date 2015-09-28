@@ -7,6 +7,7 @@
 
     <string name="text_no_data" translatable="false">今天没有干货哦</string>
     <string name="text_error" translatable="false">加载干货失败。。。点击重新加载</string>
+    <string name="image_error">图片加载失败,点击重试</string>
 
     <string name="nav_ios" translatable="false">iOS</string>
     <string name="nav_android" translatable="false">Android</string>
@@ -50,13 +51,22 @@
     <string name="title_num">显示数量</string>
     <string name="summary_num">每页显示的数量</string>
 
+    <string name="share">分享</string>
+    <string name="save">保存</string>
+
+    <string name="error_get_image">获取图片失败</string>
+
     <string name="confirm">确定</string>
+
+    <string name="more_last">没有更多数据了</string>
+    <string name="text_loading_failure">加载失败,点击重新加载</string>
 
     <string name="light">亮主题</string>
     <string name="dark">暗主题</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
+    <string name="text_gank">Gank</string>
 
     <string-array name="pref_theme_list_entries">
         <item>@string/light</item>

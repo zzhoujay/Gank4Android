@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -20,6 +19,7 @@ import zhou.gank.io.data.DataProvider
 import zhou.gank.io.data.RandomProvider
 import zhou.gank.io.data.TypeProvider
 import zhou.gank.io.model.Gank
+import zhou.gank.io.ui.activity.ImageGalleryActivity
 import zhou.gank.io.ui.activity.WebActivity
 import zhou.gank.io.ui.adapter.BaseAdapter
 import zhou.gank.io.ui.adapter.GankAdapter
@@ -72,15 +72,14 @@ public class GankFragment extends AdvanceFragment {
             } else {
                 Intent intent
                 if (isImage) {
-                    intent = new Intent(getActivity(), FullScreenImageGalleryActivity.class)
+                    intent = new Intent(getActivity(), ImageGalleryActivity.class)
                     ArrayList<Gank> ganks = provider.get() as ArrayList<Gank>
                     ArrayList<String> urls = new ArrayList<>(ganks.size())
                     ganks.each {
                         urls << it.url
                     }
-                    intent.putStringArrayListExtra("images", urls)
-//                    intent.putExtra("palette_color_type", PaletteColorType.VIBRANT)
-                    intent.putExtra("position", p as int)
+                    intent.putStringArrayListExtra(Config.Static.URLS, urls)
+                    intent.putExtra(Config.Static.POSITION, p as int)
                 } else {
                     intent = new Intent(getActivity(), WebActivity.class)
                     intent.putExtra(Config.Static.URL, gs.url)

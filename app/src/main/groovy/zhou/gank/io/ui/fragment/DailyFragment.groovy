@@ -92,7 +92,6 @@ class DailyFragment extends BaseFragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()))
         recyclerView.setAdapter(dailyAdapter)
-
         requestDaily()
 
         fab.setOnClickListener({ v ->
@@ -106,26 +105,35 @@ class DailyFragment extends BaseFragment {
         return view;
     }
 
+
     protected void setUpData(GankDaily daily) {
         if (daily) {
             if (daily.isEmpty()) {
                 if (isMain) {
+                    //为主页的情况
                     if (count > Config.Configurable.MAX_iteration) {
-                        setTitle(provider.year,provider.month,provider.day)
+                        //重复加载次数过多(到达了底端)
+                        setTitle(provider.year, provider.month, provider.day)
                         setEmpty()
                     } else {
+                        //加载前一天的数据
                         count++
                         provider = provider.getPrevDay()
-                        DataManager.getInstance().get(provider, this.&setUpData)
+                        if (TimeKit.future(provider.year, provider.month, provider.day)) {
+                            //如如果要加载的数据是今天或以后
+                            DataManager.getInstance().update(provider, this.&setUpData)
+                        } else {
+                            DataManager.getInstance().get(provider, this.&setUpData)
+                        }
                     }
                 } else {
                     // Empty
-                    setTitle(provider.year,provider.month,provider.day)
+                    setTitle(provider.year, provider.month, provider.day)
                     setEmpty()
                 }
             } else {
                 // Success
-                setTitle(provider.year,provider.month,provider.day)
+                setTitle(provider.year, provider.month, provider.day)
                 List<List<Gank>> ganks = daily.ganks
                 List<String> types = daily.types
                 List<Gank> welfares = ganks.get(types.indexOf(Config.Type.WELFARE))
@@ -156,7 +164,7 @@ class DailyFragment extends BaseFragment {
             }
         } else {
             // Error
-            setTitle(provider.year,provider.month,provider.day)
+            setTitle(provider.year, provider.month, provider.day)
             setError()
         }
     }
@@ -175,7 +183,8 @@ class DailyFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    def setTitle(String title) {
+    @Override
+    protected void setTitle(String title) {
         collapsingToolbarLayout.setTitle(title);
     }
 
@@ -214,7 +223,7 @@ class DailyFragment extends BaseFragment {
         error.setVisibility(View.GONE)
     }
 
-    def setTitle(int year, int month, int day) {
+    protected void setTitle(int year, int month, int day) {
         setTitle("${year}${getString(R.string.year)}${month}${getString(R.string.month)}${day}${getString(R.string.day)}")
     }
 

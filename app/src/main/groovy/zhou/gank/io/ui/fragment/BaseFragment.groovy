@@ -48,6 +48,14 @@ class BaseFragment extends Fragment {
 
     }
 
+    protected void setTitle(String title) {
+        getActivity().setTitle(title)
+    }
+
+    protected void setTitle(int res) {
+        getActivity().setTitle(res)
+    }
+
     boolean onKeyDown(int keyCode, KeyEvent event) {
         return false
     }

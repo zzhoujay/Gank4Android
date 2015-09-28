@@ -38,6 +38,10 @@ class Config {
         public static final String MONTH = "month"
 
         public static final String DAY = "day"
+
+        public static final String URLS = "urls"
+
+        public static final String POSITION = "position"
     }
 
     public static class Type {

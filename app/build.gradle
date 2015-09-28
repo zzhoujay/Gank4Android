@@ -54,5 +54,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'zhou.widget:advanceadapter:1.0'
-    compile project(':imagegallery')
+
+    compile 'org.litepal.android:core:1.2.1'
 }
