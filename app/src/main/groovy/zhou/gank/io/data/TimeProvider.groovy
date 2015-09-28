@@ -6,7 +6,6 @@ import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.model.GankDaily
-import zhou.gank.io.model.Result
 import zhou.gank.io.model.ResultDaily
 import zhou.gank.io.net.NetworkManager
 import zhou.gank.io.util.FileKit
@@ -29,7 +28,6 @@ class TimeProvider implements DataProvider<GankDaily> {
         this.day = day
         key = HashKit.md5("year:$year,month:$month,day:$day-cache")
         file = new File(App.cacheFile(), key)
-        LogKit.i("time", "year:$year,month:$month,day:$day-cache")
     }
 
     @Override
@@ -60,13 +58,19 @@ class TimeProvider implements DataProvider<GankDaily> {
     void loadByCache(Closure closure) {
         def d = null
         if (file.exists()) {
-            try {
-                d = FileKit.readObject(file)
-            } catch (Exception e) {
-                LogKit.d("loadByCache", "time", e)
-            }
+            new Thread({
+                try {
+                    d = FileKit.readObject(file)
+                } catch (Exception e) {
+                    LogKit.d("loadByCache", "time", e)
+                }
+                App.getInstance().getMainHandler().post({
+                    closure?.call(d)
+                })
+            }).start()
+        } else {
+            closure?.call(d)
         }
-        closure?.call(d)
     }
 
     @Override

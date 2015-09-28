@@ -21,7 +21,7 @@ class TypeProvider implements DataProvider<List<Gank>> {
 
     TypeProvider(String type, int size) {
         this.type = type;
-        key = HashKit.md5("$type-cache")
+        key = HashKit.md5("${type}${size}-cache")
         file = new File(App.cacheFile(), key)
         pageable = new Pageable(1, size)
     }
@@ -31,7 +31,7 @@ class TypeProvider implements DataProvider<List<Gank>> {
         if (hasLoad()) {
             new Thread({
                 try {
-                    FileKit.writeObject(file, ganks)
+                    FileKit.writeObject(file, new TypeGankEntity(pageable, ganks))
                 } catch (Exception e) {
                     LogKit.d("persistence", "type", e)
                 }
@@ -58,13 +58,21 @@ class TypeProvider implements DataProvider<List<Gank>> {
     void loadByCache(Closure closure) {
         def gks = null
         if (file.exists()) {
-            try {
-                gks = FileKit.readObject(file)
-            } catch (Exception e) {
-                LogKit.d("loadByCache", "type", e)
-            }
+            new Thread({
+                try {
+                    def tge = FileKit.readObject(file) as TypeGankEntity
+                    gks = tge.g
+                    pageable = tge.p
+                } catch (Exception e) {
+                    LogKit.d("loadByCache", "type", e)
+                }
+            }).start()
+            App.getInstance().getMainHandler().post({
+                closure?.call(gks)
+            })
+        }else {
+            closure?.call(gks)
         }
-        closure?.call(gks)
     }
 
     @Override
@@ -123,5 +131,19 @@ class TypeProvider implements DataProvider<List<Gank>> {
     @Override
     void setNoticeable(boolean noticeable) {
         this.noticeable = noticeable
+    }
+
+    public static class TypeGankEntity implements Serializable {
+
+        public Pageable p
+        public List<Gank> g
+
+        TypeGankEntity(Pageable p, List<Gank> g) {
+            this.p = p
+            this.g = g
+        }
+
+        TypeGankEntity() {
+        }
     }
 }
