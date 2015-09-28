@@ -8,9 +8,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity
-import com.etiennelawlor.imagegallery.library.enums.PaletteColorType
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -31,10 +32,11 @@ public class GankFragment extends AdvanceFragment {
 
     DataProvider provider
     String type
-    boolean isRandom, isImage
+    boolean isRandom, isImage, loadMoreProgress, noMoreData
     View more
     LinearLayoutManager manager
-
+    ProgressBar progressBar
+    TextView moreText
     private BaseAdapter adapter
 
     @Override
@@ -61,7 +63,7 @@ public class GankFragment extends AdvanceFragment {
             adapter = new GankAdapter()
         }
 
-        adapter.setClickListener { gank,p=null ->
+        adapter.setClickListener { gank, p = null ->
             def gs = gank as Gank
             boolean flag = Config.getBoolean(getString(R.string.key_open), true)
             if (!flag) {
@@ -78,7 +80,7 @@ public class GankFragment extends AdvanceFragment {
                     }
                     intent.putStringArrayListExtra("images", urls)
 //                    intent.putExtra("palette_color_type", PaletteColorType.VIBRANT)
-                    intent.putExtra("position",p as int)
+                    intent.putExtra("position", p as int)
                 } else {
                     intent = new Intent(getActivity(), WebActivity.class)
                     intent.putExtra(Config.Static.URL, gs.url)
@@ -93,13 +95,15 @@ public class GankFragment extends AdvanceFragment {
     public void setUpData(List<Gank> ganks) {
         if (ganks != null) {
             if (ganks.isEmpty()) {
-                hiddenMore()
+                onNoMoreData()
+                Toast.makeText(getActivity(), R.string.no_data, Toast.LENGTH_SHORT).show()
             } else {
                 onSuccess()
                 adapter.setGanks(ganks)
                 showMore()
             }
         } else {
+            onLoadFailure()
             onFailure()
         }
     }
@@ -114,6 +118,9 @@ public class GankFragment extends AdvanceFragment {
 
         if (!isRandom) {
             more = LayoutInflater.from(getActivity()).inflate(R.layout.layout_more, null)
+            moreText = more.findViewById(R.id.textView) as TextView
+            progressBar = more.findViewById(R.id.progressBar) as ProgressBar
+
             AdvanceAdapter advanceAdapter = new AdvanceAdapter(adapter)
             advanceAdapter.addFooter(more)
             recyclerView.setAdapter(advanceAdapter)
@@ -122,9 +129,12 @@ public class GankFragment extends AdvanceFragment {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        if (manager.findLastVisibleItemPosition() == advanceAdapter.getItemCount() - 1) {
-                            more();
+                        if (more.isShown()) {
+                            more()
                         }
+//                        if (manager.findLastVisibleItemPosition() == advanceAdapter.getItemCount() - 1) {
+//                            more();
+//                        }
                     }
                 }
 
@@ -133,7 +143,10 @@ public class GankFragment extends AdvanceFragment {
                 }
             });
 
-            hiddenMore()
+            more.setVisibility(View.GONE)
+            more.setClickable(false)
+
+            more.setOnClickListener(this.&more)
 
         } else {
             recyclerView.setAdapter(adapter)
@@ -169,12 +182,34 @@ public class GankFragment extends AdvanceFragment {
         DataManager.getInstance().update(provider, this.&setUpData)
     }
 
-    protected void more() {
-        DataManager.getInstance().more(provider, this.&setUpData)
+    protected void more(View v = null) {
+        if (loadMoreProgress) {
+            return
+        }
+        loadMoreProgress = true
+        onLoading()
+        DataManager.getInstance().more(provider, { ganks ->
+            setUpData(ganks as List<Gank>)
+            loadMoreProgress = false
+        })
     }
 
-    protected void hiddenMore() {
-        more?.setVisibility(View.GONE)
+    def onNoMoreData() {
+        moreText?.setText(R.string.more_last)
+        progressBar?.setVisibility(View.INVISIBLE)
+        more?.setClickable(false)
+    }
+
+    def onLoading() {
+        moreText?.setText(R.string.text_loading)
+        progressBar?.setVisibility(View.VISIBLE)
+        more?.setClickable(false)
+    }
+
+    def onLoadFailure() {
+        moreText?.setText(R.string.text_loading_failure)
+        progressBar?.setVisibility(View.VISIBLE)
+        more?.setClickable(true)
     }
 
     protected void showMore() {
