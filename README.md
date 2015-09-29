@@ -11,16 +11,15 @@
 * 对应GitHub地址:<https://github.com/zzhoujay/Gank4Android>
 
 ### 截图
-
-![xx](/screenshot/device-1.jpg)
-![xx](/screenshot/device-2.jpg)
-![xx](/screenshot/device-3.jpg)
-![xx](/screenshot/device-4.jpg)
-![xx](/screenshot/device-5.jpg)
-![xx](/screenshot/device-6.jpg)
-![xx](/screenshot/device-7.jpg)
-![xx](/screenshot/device-8.jpg)
-![xx](/screenshot/device-9.jpg)
-![xx](/screenshot/device-10.jpg)
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220758_085c1eb1_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220831_147fc0c6_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220846_6352f286_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220909_17bb9a0e_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220925_e86328e7_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220933_ca9446c7_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220940_187a5e9b_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220953_e16a8999_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/220959_513cdc48_141009.jpeg "运行截图")
+![运行截图](http://git.oschina.net/uploads/images/2015/0929/221006_39429de7_141009.jpeg "运行截图")
 
 _by zzhoujay_
