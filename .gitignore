@@ -12,6 +12,8 @@
 *.apk
 *.ap_
 
+!/apk/app-release.apk
+
 # files for the dex VM
 *.dex
 
