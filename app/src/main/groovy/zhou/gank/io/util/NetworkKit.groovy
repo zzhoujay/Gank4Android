@@ -16,8 +16,8 @@ class NetworkKit {
                 closure(JsonKit.generate(result as String, App.getInstance().getGson()))
             }catch (Exception e){
                 LogKit.d("JsonKit","error",e)
+                closure()
             }
-            closure()
         })
     }
 
