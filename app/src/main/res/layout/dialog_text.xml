@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:text="@string/test_title"
+    android:lineSpacingMultiplier="1.5"
+    android:padding="30dp"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textSize="@dimen/material_sub_head" />

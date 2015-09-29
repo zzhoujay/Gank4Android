@@ -4,9 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Parcel
 import android.support.annotation.NonNull
+import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.URLSpan
 import android.view.View
+import android.widget.TextView
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R

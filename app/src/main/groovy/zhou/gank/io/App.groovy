@@ -14,8 +14,8 @@ import com.bettervectordrawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import groovy.transform.CompileStatic
-import org.litepal.LitePalApplication
 import zhou.gank.io.comment.Config
+import zhou.gank.io.database.DatabaseManager
 import zhou.gank.io.net.NetworkManager
 import zhou.gank.io.util.Notifier
 
@@ -46,12 +46,14 @@ class App extends Application {
     Handler mainHandler
     int cardLight, cardDark, textLight, textDark
     ArrayList<Notifier> notifiers
+    public static boolean hasStarted
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LitePalApplication.initialize(this)
         app = this;
+
+        DatabaseManager.init(this)
 
         cardDark = getColor(R.color.cardview_dark_background)
         cardLight = getColor(R.color.cardview_light_background)
@@ -72,12 +74,12 @@ class App extends Application {
         }
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
                 R.drawable.ic_favorite_white_48px,
-                R.drawable.wrong, R.drawable.ic_info_48px,
+                R.drawable.ic_info_48px,
                 R.drawable.ic_dashboard_48px, R.drawable.ic_event_48px,
                 R.drawable.ic_extension_48px, R.drawable.ic_settings_black_48px,
                 R.drawable.ic_menu_white_48px, R.drawable.ic_view_module_48px,
                 R.drawable.ic_cloud_queue_48px, R.drawable.ic_cloud_off_48px,
-                R.drawable.ic_insert_emoticon_48px)
+                R.drawable.ic_insert_emoticon_48px, R.drawable.ic_bookmark_48px)
 
         Config.Configurable.HANDLE_BY_ME = true
 

@@ -74,6 +74,12 @@ class HomeActivity extends AppCompatActivity implements Notifier {
                         startActivity(intent)
                     }, 250)
                     return true
+                case R.id.nav_collect:
+                    Intent intent = new Intent(this, CollectActivity.class)
+                    App.getInstance().getMainHandler().postDelayed({
+                        startActivity(intent)
+                    }, 250)
+                    return true
                 case R.id.nav_info:
                     def info = InfoDialog.newInstance(getString(R.string.nav_info), TextKit.getInfo())
                     info.show(getSupportFragmentManager(), "info")

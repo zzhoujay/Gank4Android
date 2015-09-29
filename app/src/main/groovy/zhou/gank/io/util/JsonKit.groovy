@@ -1,4 +1,5 @@
 package zhou.gank.io.util
+
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
@@ -31,6 +32,13 @@ class JsonKit {
             ghs.add(gson.fromJson(e, new TypeToken<List<Gank>>() {
             }.getType()) as List<Gank>);
         }
+
+        ghs.sort { a, b ->
+            def aa = a as List<Gank>
+            def bb = b as List<Gank>
+            return aa.get(0).type.compareTo(bb.get(0).type)
+        }
+        types.sort()
 
         return new ResultDaily(error, new GankDaily(types, ghs));
     }

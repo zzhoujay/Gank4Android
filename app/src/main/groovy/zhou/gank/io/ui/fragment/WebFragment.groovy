@@ -17,18 +17,23 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
+import android.widget.Toast
 import groovy.transform.CompileStatic
 import zhou.gank.io.App
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
+import zhou.gank.io.database.DatabaseManager
+import zhou.gank.io.model.Bookmark
+import zhou.gank.io.util.LogKit
 
 @CompileStatic
 public class WebFragment extends BaseFragment {
 
     WebView webView
-    String url
+    String url, title
     ProgressBar progressBar
     SwipeRefreshLayout swipeRefreshLayout
+    MenuItem itemCollect
 
     @Override
     void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class WebFragment extends BaseFragment {
 
         Bundle bundle = getArguments()
         url = bundle?.getString(Config.Static.URL)
+        title = bundle?.getString(Config.Static.TITLE)
 
         webView.loadUrl(url)
 
@@ -118,6 +124,12 @@ public class WebFragment extends BaseFragment {
     void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_web, menu)
+        itemCollect = menu.findItem(R.id.menu_collect)
+        if (DatabaseManager.getInstance().isExist(url)) {
+            itemCollect.setTitle(R.string.cancel_collect)
+        } else {
+            itemCollect.setTitle(R.string.menu_collect)
+        }
     }
 
     @Override
@@ -131,21 +143,40 @@ public class WebFragment extends BaseFragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
                 return true
-//            case R.id.menu_collect:
-//                App.toast(R.string.hehe)
-//                return true
+            case R.id.menu_collect:
+                collect()
+                return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    def collect(){
-
+    def collect() {
+        if (DatabaseManager.getInstance().isExist(url)) {
+            try {
+                DatabaseManager.getInstance().delete(url)
+                Toast.makeText(getActivity(), R.string.success_uncollect, Toast.LENGTH_SHORT).show()
+                itemCollect.setTitle(R.string.menu_collect)
+            } catch (Exception e) {
+                LogKit.d("uncollect", "failure", e)
+                Toast.makeText(getActivity(), R.string.failure_uncollect, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            try {
+                DatabaseManager.getInstance().insert(new Bookmark(url, title == getString(R.string.app_name) ? webView.getTitle() : title))
+                Toast.makeText(getActivity(), R.string.success_collect, Toast.LENGTH_SHORT).show()
+                itemCollect.setTitle(R.string.cancel_collect)
+            } catch (Exception e) {
+                LogKit.d("collect", "failure", e)
+                Toast.makeText(getActivity(), R.string.failure_collect, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    static WebFragment newInstance(String url) {
+    static WebFragment newInstance(String url, String title = null) {
         WebFragment webFragment = new WebFragment()
         Bundle bundle = new Bundle()
         bundle.putString(Config.Static.URL, url)
+        bundle.putString(Config.Static.TITLE, title)
         webFragment.setArguments(bundle)
         return webFragment
     }

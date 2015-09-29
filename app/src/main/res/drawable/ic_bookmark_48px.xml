@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:better="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportHeight="48"
+    android:viewportWidth="48"
+    better:viewportHeight="48"
+    better:viewportWidth="48"
+    tools:ignore="NewApi">
+    <path
+        android:fillColor="#000000"
+        android:pathData="M34 6L14 6c-2.21 0 -3.98 1.79 -3.98 4L10 42 24 36 38 42 38 10C38 7.79 36.21 6 34 6Z"
+        better:fillColor="#000000"
+        better:pathData="M34 6L14 6c-2.21 0 -3.98 1.79 -3.98 4L10 42 24 36 38 42 38 10C38 7.79 36.21 6 34 6Z" />
+</vector>

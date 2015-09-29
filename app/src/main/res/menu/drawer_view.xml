@@ -16,6 +16,10 @@
                     android:id="@+id/nav_random"
                     android:icon="@drawable/ic_extension_48px"
                     android:title="@string/nav_random" />
+                <item
+                    android:id="@+id/nav_collect"
+                    android:icon="@drawable/ic_bookmark_48px"
+                    android:title="@string/nav_collect" />
             </group>
         </menu>
     </item>

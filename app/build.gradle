@@ -55,5 +55,4 @@ dependencies {
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'zhou.widget:advanceadapter:1.0'
 
-    compile 'org.litepal.android:core:1.2.1'
 }

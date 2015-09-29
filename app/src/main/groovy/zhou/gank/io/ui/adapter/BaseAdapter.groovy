@@ -9,7 +9,7 @@ public
 abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     List<Gank> ganks
-    Closure clickListener
+    Closure clickListener, longClickListener
 
     void setGanks(List<Gank> ganks) {
         this.ganks = ganks
@@ -18,5 +18,13 @@ abstract class BaseAdapter<T extends RecyclerView.ViewHolder> extends RecyclerVi
 
     void setClickListener(Closure clickListener) {
         this.clickListener = clickListener
+    }
+
+    void setLongClickListener(Closure longClickListener) {
+        this.longClickListener = longClickListener
+    }
+
+    void removeItem(int position) {
+
     }
 }

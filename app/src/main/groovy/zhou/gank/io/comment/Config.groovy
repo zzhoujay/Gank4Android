@@ -33,6 +33,8 @@ class Config {
 
         public static final String IS_MAIN = "is_main"
 
+        public static final String IS_BOOKMARK = "is_bookmark"
+
         public static final String YEAR = "year"
 
         public static final String MONTH = "month"

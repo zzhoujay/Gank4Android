@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gank.io</string>
+    <string name="app_name">干活集中营</string>
 
     <string name="loading">加载中。。。</string>
     <string name="no_data">没有数据!</string>
@@ -17,6 +17,7 @@
     <string name="nav_video" translatable="false">休息视频</string>
     <string name="nav_daily">今天</string>
     <string name="nav_random">试试运气</string>
+    <string name="nav_collect">收藏</string>
     <string name="test_user" translatable="false">zzhoujay</string>
     <string name="test_title" translatable="false">测试标题。。。。。。。。。。。。。。。</string>
     <string name="test_time" translatable="false">2015年9月23日</string>
@@ -58,15 +59,25 @@
 
     <string name="confirm">确定</string>
 
+    <string name="already_collect">已经收藏过了</string>
+    <string name="failure_collect">收藏失败</string>
+    <string name="success_collect">收藏成功</string>
+    <string name="cancel_collect">取消收藏</string>
+    <string name="failure_uncollect">取消收藏失败</string>
+    <string name="success_uncollect">取消收藏成功</string>
+
     <string name="more_last">没有更多数据了</string>
     <string name="text_loading_failure">加载失败,点击重新加载</string>
+
+    <string name="menu_title">删除</string>
+    <string name="success_delete">删除成功</string>
 
     <string name="light">亮主题</string>
     <string name="dark">暗主题</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
-    <string name="text_gank">Gank</string>
+    <string name="text_gank" translatable="false">Gank</string>
 
     <string-array name="pref_theme_list_entries">
         <item>@string/light</item>

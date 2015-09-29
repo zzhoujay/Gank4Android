@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gank.io</string>
+    <string name="app_name">Gank.IO</string>
     <string name="confirm">confirm</string>
     <string name="error">Error!</string>
     <string name="error_network">The network connection is not available, please check the network connection and try again</string>
     <string name="failure_get">Failed to get the data</string>
     <string name="loading">Loading…</string>
-    <string name="menu_collect">collect</string>
+    <string name="menu_collect">Collect</string>
     <string name="menu_copy">Copy the URL</string>
     <string name="menu_open">Open in browser</string>
     <string name="nav_setting">Setting</string>
@@ -34,4 +34,19 @@
     <string name="month">-</string>
     <string name="year">-</string>
     <string name="day"> </string>
+    <string name="cancel_collect">Cancel the collection</string>
+    <string name="nav_collect">Collection</string>
+    <string name="more_last">There is no more data</string>
+    <string name="menu_title">Delete</string>
+    <string name="image_error">Failure load images, click retry</string>
+    <string name="failure_uncollect">Cancel the collection failure</string>
+    <string name="failure_collect">Collection operation fails</string>
+    <string name="error_get_image">Failed to get the picture</string>
+    <string name="already_collect">Collection has been made</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="success_collect">Collection of success</string>
+    <string name="success_delete">Deleted successfully</string>
+    <string name="success_uncollect">Cancel the collection success</string>
+    <string name="text_loading_failure">Failure load, click reload</string>
 </resources>

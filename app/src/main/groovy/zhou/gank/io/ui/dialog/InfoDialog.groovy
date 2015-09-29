@@ -4,7 +4,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertController
+import android.support.v7.app.AlertDialog
+import android.text.method.LinkMovementMethod
+import android.view.LayoutInflater
+import android.widget.TextView;
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -26,8 +30,12 @@ public class InfoDialog extends DialogFragment {
     @Override
     Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-        builder.setTitle(title).setMessage(content).setPositiveButton(R.string.confirm, null)
-        return builder.create()
+        TextView tv = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_text, null) as TextView
+        tv.setText(content)
+        tv.setMovementMethod(LinkMovementMethod.getInstance())
+        builder.setTitle(title).setView(tv).setPositiveButton(R.string.confirm, null)
+        AlertDialog dialog = builder.create()
+        return dialog
     }
 
     static InfoDialog newInstance(String title, CharSequence content) {

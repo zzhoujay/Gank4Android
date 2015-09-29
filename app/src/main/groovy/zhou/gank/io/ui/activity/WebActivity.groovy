@@ -23,6 +23,6 @@ public class WebActivity extends ToolbarActivity {
         }
         setTitle(title)
 
-        add(WebFragment.newInstance(i.getStringExtra(Config.Static.URL)))
+        add(WebFragment.newInstance(i.getStringExtra(Config.Static.URL), title))
     }
 }

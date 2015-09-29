@@ -107,7 +107,7 @@ class DailyFragment extends BaseFragment {
 
 
     protected void setUpData(GankDaily daily) {
-        if (daily) {
+        if (daily != null) {
             if (daily.isEmpty()) {
                 if (isMain) {
                     //为主页的情况
@@ -117,13 +117,19 @@ class DailyFragment extends BaseFragment {
                         setEmpty()
                     } else {
                         //加载前一天的数据
-                        count++
-                        provider = provider.getPrevDay()
-                        if (TimeKit.future(provider.year, provider.month, provider.day)) {
-                            //如如果要加载的数据是今天或以后
+                        if (count == 0) {
+                            // 重新加载今天的内容
                             DataManager.getInstance().update(provider, this.&setUpData)
+                            count++
                         } else {
-                            DataManager.getInstance().get(provider, this.&setUpData)
+                            count++
+                            provider = provider.getPrevDay()
+                            if (TimeKit.future(provider.year, provider.month, provider.day)) {
+                                //如如果要加载的数据是今天或以后
+                                DataManager.getInstance().update(provider, this.&setUpData)
+                            } else {
+                                DataManager.getInstance().get(provider, this.&setUpData)
+                            }
                         }
                     }
                 } else {
@@ -163,6 +169,11 @@ class DailyFragment extends BaseFragment {
                 setSuccess()
             }
         } else {
+            if(daily){
+                println("not null")
+            }else {
+                println("is null")
+            }
             // Error
             setTitle(provider.year, provider.month, provider.day)
             setError()

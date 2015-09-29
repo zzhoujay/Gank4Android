@@ -33,13 +33,20 @@ class TextKit {
     public static CharSequence getInfo() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         int start = 0
-        builder.append("gank.io\n")
+        builder.append("Gank.IO Android 客户端\n")
         builder.setSpan(new StyleSpan(Typeface.BOLD), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        builder.append("Android 客户端。\n")
         builder.append("项目地址：")
         start = builder.length()
         builder.append("git@osc")
-        builder.setSpan(new URLSpanNoUnderline("https://git.oschina.net/zzhoujay/Gank4Android.git"), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(new URLSpanNoUnderline("https://git.oschina.net/zzhoujay/Gank4Android"), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.append("、")
+        start = builder.length()
+        builder.append("github")
+        builder.setSpan(new URLSpanNoUnderline("https://github.com/zzhoujay/Gank4Android"), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.append("\n")
+        start = builder.length()
+        builder.append("by zzhoujay")
+        builder.setSpan(new StyleSpan(Typeface.ITALIC), start, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return builder
     }
 }

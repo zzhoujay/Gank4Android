@@ -24,6 +24,10 @@ public class GankAdapter extends BaseAdapter<Holder> {
             Gank gank = ganks?.get(p as int)
             clickListener?.call(gank)
         }
+        holder.setLongListener { v, p ->
+            Gank gank = ganks?.get(p as int)
+            longClickListener?.call(v, gank, p)
+        }
         return holder
     }
 
@@ -45,7 +49,7 @@ public class GankAdapter extends BaseAdapter<Holder> {
 
         public TextView title, user, time
 
-        Closure listener
+        Closure listener, longListener
 
         Holder(View itemView) {
             super(itemView)
@@ -66,6 +70,10 @@ public class GankAdapter extends BaseAdapter<Holder> {
             itemView.setOnClickListener({ v ->
                 listener?.call(getAdapterPosition())
             })
+
+            itemView.setOnLongClickListener({ v ->
+                longListener?.call(itemView, getAdapterPosition())
+            })
         }
 
         void setListener(Closure listener) {
@@ -76,5 +84,11 @@ public class GankAdapter extends BaseAdapter<Holder> {
     void setGanks(List<Gank> ganks) {
         this.ganks = ganks
         notifyDataSetChanged()
+    }
+
+    @Override
+    void removeItem(int position) {
+        ganks.remove(position)
+        notifyItemRemoved(position)
     }
 }

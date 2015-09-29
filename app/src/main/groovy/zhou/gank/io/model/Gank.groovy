@@ -31,6 +31,12 @@ class Gank implements Serializable{
         this.updatedAt = updatedAt
     }
 
+    Gank(String desc, String url, Date createdAt) {
+        this.desc = desc
+        this.url = url
+        this.createdAt = createdAt
+    }
+
     Gank() {
     }
 
