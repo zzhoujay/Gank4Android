@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:better="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NewApi"
+    android:viewportWidth="48"
+    better:viewportWidth="48"
+    android:viewportHeight="48"
+    better:viewportHeight="48"
+    android:width="48dp"
+    android:height="48dp">
+    <path
+        android:pathData="M35.3 12.7C32.41 9.8 28.42 8 24 8 15.16 8 8.02 15.16 8.02 24c0 8.84 7.14 16 15.98 16 7.45 0 13.69 -5.1 15.46 -12l-4.16 0c-1.65 4.66 -6.07 8 -11.3 8 -6.63 0 -12 -5.37 -12 -12 0 -6.63 5.37 -12 12 -12 3.31 0 6.28 1.38 8.45 3.55L26 22 40 22 40 8 35.3 12.7Z"
+        better:pathData="M35.3 12.7C32.41 9.8 28.42 8 24 8 15.16 8 8.02 15.16 8.02 24c0 8.84 7.14 16 15.98 16 7.45 0 13.69 -5.1 15.46 -12l-4.16 0c-1.65 4.66 -6.07 8 -11.3 8 -6.63 0 -12 -5.37 -12 -12 0 -6.63 5.37 -12 12 -12 3.31 0 6.28 1.38 8.45 3.55L26 22 40 22 40 8 35.3 12.7Z"
+        android:fillColor="#ffffff"
+        better:fillColor="#ffffff" />
+</vector>

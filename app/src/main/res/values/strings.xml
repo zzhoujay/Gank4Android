@@ -4,6 +4,7 @@
     <string name="loading">加载中。。。</string>
     <string name="no_data">没有数据!</string>
     <string name="error">出错了!</string>
+    <string name="text_refresh">刷新</string>
 
     <string name="text_no_data" translatable="false">今天没有干货哦</string>
     <string name="text_error" translatable="false">加载干货失败。。。点击重新加载</string>

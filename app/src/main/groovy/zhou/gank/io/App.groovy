@@ -74,7 +74,7 @@ class App extends Application {
         }
         VectorDrawableCompat.enableResourceInterceptionFor(getResources(),
                 R.drawable.ic_favorite_white_48px,
-                R.drawable.ic_info_48px,
+                R.drawable.ic_info_48px,R.drawable.ic_refresh_48px,
                 R.drawable.ic_dashboard_48px, R.drawable.ic_event_48px,
                 R.drawable.ic_extension_48px, R.drawable.ic_settings_black_48px,
                 R.drawable.ic_menu_white_48px, R.drawable.ic_view_module_48px,

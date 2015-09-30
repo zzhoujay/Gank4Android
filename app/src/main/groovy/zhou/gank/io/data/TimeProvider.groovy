@@ -21,6 +21,7 @@ class TimeProvider implements DataProvider<GankDaily> {
     private String key
     private File file
     private boolean noticeable
+    private boolean needCache
 
     TimeProvider(int year, int month, int day) {
         this.year = year
@@ -28,6 +29,24 @@ class TimeProvider implements DataProvider<GankDaily> {
         this.day = day
         key = HashKit.md5("year:$year,month:$month,day:$day-cache")
         file = new File(App.cacheFile(), key)
+
+        Calendar now = Calendar.getInstance()
+        int y = now.get(Calendar.YEAR)
+        if (year < y) {
+            needCache = true
+        } else if (year == y) {
+            int m = now.get(Calendar.MONTH) + 1
+            if (month < m) {
+                needCache = true
+            } else if (month == m) {
+                int d = now.get(Calendar.DAY_OF_MONTH)
+                needCache = day <= d
+            } else {
+                needCache = false
+            }
+        } else {
+            needCache = false
+        }
     }
 
     @Override
@@ -103,7 +122,7 @@ class TimeProvider implements DataProvider<GankDaily> {
 
     @Override
     public boolean needCache() {
-        return true
+        return needCache
     }
 
     @Override

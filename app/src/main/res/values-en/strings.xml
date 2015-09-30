@@ -49,4 +49,5 @@
     <string name="success_delete">Deleted successfully</string>
     <string name="success_uncollect">Cancel the collection success</string>
     <string name="text_loading_failure">Failure load, click reload</string>
+    <string name="text_refresh">Refresh</string>
 </resources>

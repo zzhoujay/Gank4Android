@@ -13,6 +13,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +44,7 @@ class DailyFragment extends BaseFragment {
     boolean isMain = false
     int year, month, day
     int count
+    MenuItem refresh
 
 
     @Override
@@ -107,6 +110,7 @@ class DailyFragment extends BaseFragment {
 
 
     protected void setUpData(GankDaily daily) {
+        refresh?.setVisible(true)
         if (daily != null) {
             if (daily.isEmpty()) {
                 if (isMain) {
@@ -169,15 +173,22 @@ class DailyFragment extends BaseFragment {
                 setSuccess()
             }
         } else {
-            if(daily){
+            if (daily) {
                 println("not null")
-            }else {
+            } else {
                 println("is null")
             }
             // Error
             setTitle(provider.year, provider.month, provider.day)
             setError()
         }
+    }
+
+    @Override
+    void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_daily, menu)
+        refresh = menu.findItem(R.id.menu_refresh)
     }
 
     @Override
@@ -190,6 +201,9 @@ class DailyFragment extends BaseFragment {
                     noticeActivity(Config.Action.FINISH)
                 }
                 return true;
+            case R.id.menu_refresh:
+                requestDaily()
+                return true
         }
         return super.onOptionsItemSelected(item);
     }
@@ -202,6 +216,7 @@ class DailyFragment extends BaseFragment {
     def requestDaily() {
         setTitle(getString(R.string.loading))
         setLoading()
+        refresh?.setVisible(false)
         DataManager.getInstance().get(provider, this.&setUpData)
     }
 
