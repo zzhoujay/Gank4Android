@@ -12,7 +12,7 @@
 *.apk
 *.ap_
 
-!/apk/app-release.apk
+!/apk/app-release*
 
 # files for the dex VM
 *.dex
