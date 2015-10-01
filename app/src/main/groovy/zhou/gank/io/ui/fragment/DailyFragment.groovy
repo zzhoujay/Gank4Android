@@ -32,6 +32,8 @@ import zhou.gank.io.util.TimeKit
 @CompileStatic
 class DailyFragment extends BaseFragment {
 
+    public static final int ID_REFRESH = 0x78901
+
 //    ImageView icon;
     RecyclerView recyclerView;
     Toolbar toolbar;
@@ -64,6 +66,7 @@ class DailyFragment extends BaseFragment {
         }
 
         provider = new TimeProvider(year, month, day)
+        provider.setNoticeable(true)
     }
 
     @Nullable
@@ -173,11 +176,6 @@ class DailyFragment extends BaseFragment {
                 setSuccess()
             }
         } else {
-            if (daily) {
-                println("not null")
-            } else {
-                println("is null")
-            }
             // Error
             setTitle(provider.year, provider.month, provider.day)
             setError()
@@ -187,8 +185,9 @@ class DailyFragment extends BaseFragment {
     @Override
     void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_daily, menu)
-        refresh = menu.findItem(R.id.menu_refresh)
+        refresh = menu.add(0,ID_REFRESH,0,R.string.text_refresh)
+        refresh.setIcon(R.drawable.ic_refresh_48px)
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }
 
     @Override
@@ -201,7 +200,7 @@ class DailyFragment extends BaseFragment {
                     noticeActivity(Config.Action.FINISH)
                 }
                 return true;
-            case R.id.menu_refresh:
+            case ID_REFRESH:
                 requestDaily()
                 return true
         }
