@@ -12,7 +12,7 @@
 
 ### release版本
 
-github的release中下载比较慢的可以到[此处下载](http://www.pgyer.com/gank4android)
+由于github的release中上传比较慢可以到[此处下载](http://www.pgyer.com/gank4android)
 
 ### 截图
 ![运行截图](http://git.oschina.net/uploads/images/2015/0929/220758_085c1eb1_141009.jpeg "运行截图")
