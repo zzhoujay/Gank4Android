@@ -33,7 +33,7 @@
     <string name="nav_random">Luck</string>
     <string name="month">-</string>
     <string name="year">-</string>
-    <string name="day"> </string>
+    <string name="day">  </string>
     <string name="cancel_collect">Cancel the collection</string>
     <string name="nav_collect">Collection</string>
     <string name="more_last">There is no more data</string>
@@ -50,4 +50,5 @@
     <string name="success_uncollect">Cancel the collection success</string>
     <string name="text_loading_failure">Failure load, click reload</string>
     <string name="text_refresh">Refresh</string>
+    <string name="success_update">Update successful</string>
 </resources>

@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.Toast
 import groovy.transform.CompileStatic
 import zhou.gank.io.R
 import zhou.gank.io.comment.Config
@@ -107,7 +108,6 @@ class DailyFragment extends BaseFragment {
 
 
     protected void setUpData(GankDaily daily) {
-        refresh?.setVisible(true)
         if (daily != null) {
             if (daily.isEmpty()) {
                 if (isMain) {
@@ -174,14 +174,16 @@ class DailyFragment extends BaseFragment {
             setTitle(provider.year, provider.month, provider.day)
             setError()
         }
+        refresh?.setVisible(true)
     }
 
     @Override
     void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        refresh = menu.add(0,ID_REFRESH,0,R.string.text_refresh)
+        refresh = menu.add(0, ID_REFRESH, 0, R.string.text_refresh)
         refresh.setIcon(R.drawable.ic_refresh_48px)
         refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        refresh.setVisible(false)
     }
 
     @Override
@@ -195,7 +197,7 @@ class DailyFragment extends BaseFragment {
                 }
                 return true;
             case ID_REFRESH:
-                requestDaily()
+                requestUpdate()
                 return true
         }
         return super.onOptionsItemSelected(item);
@@ -210,7 +212,17 @@ class DailyFragment extends BaseFragment {
         setTitle(getString(R.string.loading))
         setLoading()
         refresh?.setVisible(false)
-        DataManager.getInstance().get(provider, this.&setUpData)
+        requestData()
+    }
+
+    def requestUpdate() {
+        setTitle(getString(R.string.loading))
+        setLoading()
+        refresh?.setVisible(false)
+        DataManager.getInstance().update(provider, {
+            setUpData(it as GankDaily)
+            Toast.makeText(getActivity(),R.string.success_update,Toast.LENGTH_SHORT).show()
+        })
     }
 
     def requestData() {
