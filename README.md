@@ -1,8 +1,16 @@
 #Gank4Android
 
+> Deprecated 推荐使用更加简介的[DailyGank](https://github.com/zzhoujay/DailyGank)
+
 > 使用`Groovy`开发的`Gank.IO` `Android`客户端
 >
 > 遵循Google `Material Design`设计原则
+
+### 提示
+
+由于Groovy的效率问题，和由于Groovy引入的一系列问题，本项目将不再推荐使用，推荐使用[DailyGank](https://github.com/zzhoujay/DailyGank)来阅读每天的干货，DailyGank使用Kotlin开发，
+并且设计得十分的简洁，比本项目更快更轻量，推荐使用  
+**本项目将不再维护**
 
 ### 关于本项目
 
